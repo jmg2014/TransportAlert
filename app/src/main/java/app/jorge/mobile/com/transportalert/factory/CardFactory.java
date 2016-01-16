@@ -7,7 +7,7 @@ import app.jorge.mobile.com.transportalert.R;
  */
 public class CardFactory {
 
-    public static enum TUBE_LINE{BAKERLOO,CENTRAL,CIRCLE,DISTRICT,DLR,HC,JUBILEE,METROPOLITAN,NOTHERN,OVERGROUND,PICADILLY,VICTORIA,WATERLOO}
+    public static enum TUBE_LINE{BAKERLOO,CENTRAL,CIRCLE,DISTRICT,DLR,HC,JUBILEE,METROPOLITAN,NORTHERN,OVERGROUND,PICCADILLY,VICTORIA,WATERLOO}
 
 
     public static CardTube getCard(TUBE_LINE line){
@@ -54,9 +54,9 @@ public class CardFactory {
             return new CardTube("Metropolitan", R.drawable.metropolitan_400x400, "Checking status...", "#893267");
 
         }
-        else if (line.equals(TUBE_LINE.NOTHERN)) {
+        else if (line.equals(TUBE_LINE.NORTHERN)) {
 
-            return new CardTube("Nothern", R.drawable.nothern_400x400, "Checking status...", "#000000");
+            return new CardTube("Northern", R.drawable.nothern_400x400, "Checking status...", "#000000");
 
         }
         else if (line.equals(TUBE_LINE.OVERGROUND)) {
@@ -64,9 +64,9 @@ public class CardFactory {
             return new CardTube("London Overground", R.drawable.overground_400x400, "Checking status...", "#F86C00");
 
         }
-        else if (line.equals(TUBE_LINE.PICADILLY)) {
+        else if (line.equals(TUBE_LINE.PICCADILLY)) {
 
-            return new CardTube("Picadilly", R.drawable.picadilly_400x400, "Checking status...", "#0450A1");
+            return new CardTube("Piccadilly", R.drawable.picadilly_400x400, "Checking status...", "#0450A1");
 
         }
         else if (line.equals(TUBE_LINE.VICTORIA)) {

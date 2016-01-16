@@ -90,4 +90,31 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="action_settings">Settings</string>
+
+
+    <string name="transition_image">image</string>
+    <string name="title_activity_selection">SelectionActivity</string>
+
+    <!-- Checkbox Line selected  -->
+    <string name="bakerloo_label">Bakerloo</string>
+    <string name="central_label">Central</string>
+    <string name="circle_label">Circle</string>
+    <string name="district_label">District</string>
+    <string name="hammersmith_label">Hammersmith &amp; City</string>
+    <string name="jubilee_label">Jubilee</string>
+    <string name="metropolitan_label">Metropolitan</string>
+    <string name="nothern_label">Nothern</string>
+    <string name="picadilly_label">Picadilly</string>
+    <string name="victoria_label">Victoria</string>
+    <string name="waterloo_label">Waterloo &amp; City</string>
+
+
+    <string name="bakerloo_colour">#AE6118</string>
+    <string name="central_colour">#E41F1F</string>
+    <string name="circle_colour">#F8D42D</string>
+    <string name="circle_colour_second">#113892</string>
+
+    <string name="black">#000000</string>
+    <string name="white">#FFFFFF</string>
+
 </resources>
