@@ -61,14 +61,206 @@
                 android:text="@string/central_label"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:layout_gravity="center"
-                android:padding="2dp"
-                />
+                android:padding="2dp"/>
+        </android.support.v7.widget.CardView>
 
+        <android.support.v7.widget.CardView
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/card_Circle"
+            card_view:cardPreventCornerOverlap="false"
+            card_view:cardUseCompatPadding="true"
+            android:layout_gravity="center"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            card_view:cardCornerRadius="8dp">
+
+            <TextView
+                android:id="@+id/txtCircle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/circle_label"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_gravity="center"
+                android:padding="2dp"/>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/card_District"
+            card_view:cardPreventCornerOverlap="false"
+            card_view:cardUseCompatPadding="true"
+            android:layout_gravity="center"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            card_view:cardCornerRadius="8dp">
+
+            <TextView
+                android:id="@+id/txtDistrict"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/district_label"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_gravity="center"
+                android:padding="2dp"/>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/card_Hammersmith"
+            card_view:cardPreventCornerOverlap="false"
+            card_view:cardUseCompatPadding="true"
+            android:layout_gravity="center"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            card_view:cardCornerRadius="8dp">
+
+            <TextView
+                android:id="@+id/txtHammersmmith"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/hammersmith_label"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_gravity="center"
+                android:padding="2dp"/>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/card_Jubilee"
+            card_view:cardPreventCornerOverlap="false"
+            card_view:cardUseCompatPadding="true"
+            android:layout_gravity="center"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            card_view:cardCornerRadius="8dp">
+
+            <TextView
+                android:id="@+id/txtJubilee"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/jubilee_label"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_gravity="center"
+                android:padding="2dp"/>
         </android.support.v7.widget.CardView>
 
 
+        <android.support.v7.widget.CardView
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/card_Metropolitan"
+            card_view:cardPreventCornerOverlap="false"
+            card_view:cardUseCompatPadding="true"
+            android:layout_gravity="center"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            card_view:cardCornerRadius="8dp">
 
+            <TextView
+                android:id="@+id/txtMetropolitan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/metropolitan_label"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_gravity="center"
+                android:padding="2dp"/>
+        </android.support.v7.widget.CardView>
 
+        <android.support.v7.widget.CardView
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/card_Northern"
+            card_view:cardPreventCornerOverlap="false"
+            card_view:cardUseCompatPadding="true"
+            android:layout_gravity="center"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            card_view:cardCornerRadius="8dp">
 
+            <TextView
+                android:id="@+id/txtNorthern"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/northern_label"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_gravity="center"
+                android:padding="2dp"/>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/card_Piccadilly"
+            card_view:cardPreventCornerOverlap="false"
+            card_view:cardUseCompatPadding="true"
+            android:layout_gravity="center"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            card_view:cardCornerRadius="8dp">
+
+            <TextView
+                android:id="@+id/txtPiccadilly"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/piccadilly_label"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_gravity="center"
+                android:padding="2dp"/>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/card_Victoria"
+            card_view:cardPreventCornerOverlap="false"
+            card_view:cardUseCompatPadding="true"
+            android:layout_gravity="center"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            card_view:cardCornerRadius="8dp">
+
+            <TextView
+                android:id="@+id/txtVictoria"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/victoria_label"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_gravity="center"
+                android:padding="2dp"/>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/card_Waterloo"
+            card_view:cardPreventCornerOverlap="false"
+            card_view:cardUseCompatPadding="true"
+            android:layout_gravity="center"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            card_view:cardCornerRadius="8dp">
+
+            <TextView
+                android:id="@+id/txtWaterloo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/waterloo_label"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_gravity="center"
+                android:padding="2dp"/>
+        </android.support.v7.widget.CardView>
     </LinearLayout>
 </RelativeLayout>

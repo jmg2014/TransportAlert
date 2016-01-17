@@ -54,10 +54,10 @@ public class ScrollingActivity extends AppCompatActivity implements Callback<Lis
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-       fab= (FloatingActionButton) findViewById(R.id.fab);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
 
-         rotate_forward = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate_forward);
-         rotate_backward = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate_backward);
+        rotate_forward = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate_forward);
+        rotate_backward = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate_backward);
 
         /*
         fab.setOnClickListener(new View.OnClickListener() {
@@ -76,7 +76,7 @@ public class ScrollingActivity extends AppCompatActivity implements Callback<Lis
         fab.setOnClickListener(this);
 
 
-        LinearLayout item = (LinearLayout)findViewById(R.id.rv);
+        LinearLayout item = (LinearLayout) findViewById(R.id.rv);
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         boolean isChecked = sharedPreferences.getBoolean(getString(R.string.bakerloo_label), false);
@@ -90,39 +90,59 @@ public class ScrollingActivity extends AppCompatActivity implements Callback<Lis
         if (isChecked) {
             addCard(item, CardFactory.TUBE_LINE.CENTRAL);
         }
-        //Circle
-        addCard(item,CardFactory.TUBE_LINE.CIRCLE);
 
+        //Circle
+        isChecked = sharedPreferences.getBoolean(getString(R.string.circle_label), false);
+        if (isChecked) {
+           addCard(item, CardFactory.TUBE_LINE.CIRCLE);
+        }
         //District
-        addCard(item,CardFactory.TUBE_LINE.DISTRICT);
+        isChecked = sharedPreferences.getBoolean(getString(R.string.district_label), false);
+        if (isChecked) {
+            addCard(item, CardFactory.TUBE_LINE.DISTRICT);
+        }
 
         //DLR
        // addCard(item,CardFactory.TUBE_LINE.DLR);
 
         //HC
-        addCard(item,CardFactory.TUBE_LINE.HC);
-
+        isChecked = sharedPreferences.getBoolean(getString(R.string.hammersmith_label), false);
+        if (isChecked) {
+            addCard(item, CardFactory.TUBE_LINE.HC);
+        }
         //Jubilee
-        addCard(item,CardFactory.TUBE_LINE.JUBILEE);
-
+        isChecked = sharedPreferences.getBoolean(getString(R.string.jubilee_label), false);
+        if (isChecked) {
+            addCard(item, CardFactory.TUBE_LINE.JUBILEE);
+        }
         //Metropolitan
-        addCard(item,CardFactory.TUBE_LINE.METROPOLITAN);
-
+        isChecked = sharedPreferences.getBoolean(getString(R.string.metropolitan_label), false);
+        if (isChecked) {
+            addCard(item, CardFactory.TUBE_LINE.METROPOLITAN);
+        }
         //Nothern
-        addCard(item,CardFactory.TUBE_LINE.NORTHERN);
-
+        isChecked = sharedPreferences.getBoolean(getString(R.string.northern_label), false);
+        if (isChecked) {
+            addCard(item, CardFactory.TUBE_LINE.NORTHERN);
+        }
         //Overground
-        //addCard(item,CardFactory.TUBE_LINE.OVERGROUND);
+       // addCard(item,CardFactory.TUBE_LINE.OVERGROUND);
 
-        //Picadilly
-        addCard(item,CardFactory.TUBE_LINE.PICCADILLY);
-
+        //Piccadilly
+        isChecked = sharedPreferences.getBoolean(getString(R.string.piccadilly_label), false);
+        if (isChecked) {
+            addCard(item, CardFactory.TUBE_LINE.PICCADILLY);
+        }
         //Victoria
-        addCard(item,CardFactory.TUBE_LINE.VICTORIA);
-
+        isChecked = sharedPreferences.getBoolean(getString(R.string.victoria_label), false);
+        if (isChecked) {
+            addCard(item, CardFactory.TUBE_LINE.VICTORIA);
+        }
         //Waterloo & City
-        addCard(item, CardFactory.TUBE_LINE.WATERLOO);
-
+        isChecked = sharedPreferences.getBoolean(getString(R.string.waterloo_label), false);
+        if (isChecked) {
+            addCard(item, CardFactory.TUBE_LINE.WATERLOO);
+        }
 // asynchronous
 
 
@@ -164,24 +184,10 @@ public class ScrollingActivity extends AppCompatActivity implements Callback<Lis
         startActivity(intent);
 
     }
-    private void savePreferences(String key, boolean value) {
 
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-
-        editor.putBoolean(key, value);
-
-        editor.commit();
-
+    public Context getContext() {
+        return this;
     }
-/*
-    SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-    boolean checkBoxValue = sharedPreferences.getBoolean("CheckBox_Value", false);
-*/
-public Context getContext() {
-    return (Context)this;
-}
 
     private void addCard(LinearLayout item,CardFactory.TUBE_LINE line) {
 
@@ -210,10 +216,9 @@ public Context getContext() {
                 Intent i = new Intent(ScrollingActivity.this, DetailActivity.class);
 
                 ImageView imageView = (ImageView) v.findViewById(R.id.iconTube);
-                View sharedView = imageView;
                 String transitionName = getString(R.string.transition_image);
 
-                ActivityOptions transitionActivityOptions = ActivityOptions.makeSceneTransitionAnimation(ScrollingActivity.this, sharedView, transitionName);
+                ActivityOptions transitionActivityOptions = ActivityOptions.makeSceneTransitionAnimation(ScrollingActivity.this, imageView, transitionName);
                 startActivity(i, transitionActivityOptions.toBundle());
             }
         });
