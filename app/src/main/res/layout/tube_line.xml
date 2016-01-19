@@ -4,7 +4,7 @@
 
      <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
-         android:id="@+id/card_viewNothern"
+         android:id="@+id/card_view"
          card_view:cardPreventCornerOverlap="false"
          card_view:cardUseCompatPadding="true"
          android:layout_gravity="center"
@@ -12,6 +12,7 @@
          android:foreground="?android:attr/selectableItemBackground"
          android:clickable="true"
          android:layout_height="100dp"
+         android:transitionName="@string/activity_cardview_trans"
          card_view:cardCornerRadius="8dp">
 
 
@@ -26,6 +27,7 @@
              android:layout_width="90dp"
              android:layout_height="90dp"
              android:src="@drawable/nothern_400x400"
+             android:transitionName="@string/activity_image_trans"
              android:padding="5dp" />
 
          <LinearLayout android:layout_width="wrap_content"
@@ -38,6 +40,7 @@
                  android:layout_height="wrap_content"
                  android:text="NOTHERN LINE"
                  android:textAppearance="?android:attr/textAppearanceMedium"
+                 android:transitionName="@string/activity_text_tube_name"
                  android:layout_marginLeft="10dp"
                  android:layout_marginTop="10dp"
 
@@ -48,6 +51,7 @@
                  android:layout_width="wrap_content"
                  android:layout_height="wrap_content"
                  android:text="(Checking status...)"
+                 android:transitionName="@string/activity_text_tube_status"
                  android:layout_marginLeft="10dp"/>
          </LinearLayout>
      </LinearLayout>

@@ -1,13 +1,26 @@
+/*
+ * Copyright 2016 Jorge Manrique
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package app.jorge.mobile.com.transportalert.factory;
 
 import app.jorge.mobile.com.transportalert.R;
 
-/**
- * Created by koke on 20/12/2015.
- */
+
 public class CardFactory {
 
-    public static enum TUBE_LINE{BAKERLOO,CENTRAL,CIRCLE,DISTRICT,DLR,HC,JUBILEE,METROPOLITAN,NORTHERN,OVERGROUND,PICCADILLY,VICTORIA,WATERLOO}
+    public  enum TUBE_LINE{BAKERLOO,CENTRAL,CIRCLE,DISTRICT,DLR,HC,JUBILEE,METROPOLITAN,NORTHERN,OVERGROUND,PICCADILLY,VICTORIA,WATERLOO}
 
 
     public static CardTube getCard(TUBE_LINE line){

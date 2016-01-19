@@ -1,6 +1,21 @@
+/*
+ * Copyright 2016 Jorge Manrique
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package app.jorge.mobile.com.transportalert;
 
-import android.app.ActivityOptions;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -8,23 +23,18 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.ResponseBody;
-
 import java.util.HashMap;
 import java.util.List;
 
@@ -42,10 +52,7 @@ import retrofit.Retrofit;
 public class ScrollingActivity extends AppCompatActivity implements Callback<List<StatusLine>>,View.OnClickListener{
 
     private static final String TAG = ScrollingActivity.class.getSimpleName();
-    private Boolean isFabOpen = false;
     private FloatingActionButton fab;
-    private Animation rotate_forward;
-    private Animation rotate_backward;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,24 +63,9 @@ public class ScrollingActivity extends AppCompatActivity implements Callback<Lis
 
         fab = (FloatingActionButton) findViewById(R.id.fab);
 
-        rotate_forward = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate_forward);
-        rotate_backward = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate_backward);
-
-        /*
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-
-                fab.startAnimation(rotate_forward);
-
-
-            }
-        });
-
-*/
         fab.setOnClickListener(this);
+
+
 
 
         LinearLayout item = (LinearLayout) findViewById(R.id.rv);
@@ -169,17 +161,6 @@ public class ScrollingActivity extends AppCompatActivity implements Callback<Lis
     @Override
     public void onClick(View v) {
 
-        if(isFabOpen) {
-
-            fab.startAnimation(rotate_backward);
-            isFabOpen=false;
-
-        }
-        else{
-            fab.startAnimation(rotate_forward);
-            isFabOpen=true;
-        }
-
         Intent intent = new Intent(ScrollingActivity.this, SelectionActivity.class);
         startActivity(intent);
 
@@ -210,9 +191,12 @@ public class ScrollingActivity extends AppCompatActivity implements Callback<Lis
         child.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "Transition", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getContext(), "Transition", Toast.LENGTH_SHORT).show();
                 //Intent intent = new Intent(ScrollingActivity.this, DetailActivity.class);
                 //startActivity(intent);
+
+
+                /*
                 Intent i = new Intent(ScrollingActivity.this, DetailActivity.class);
 
                 ImageView imageView = (ImageView) v.findViewById(R.id.iconTube);
@@ -220,13 +204,36 @@ public class ScrollingActivity extends AppCompatActivity implements Callback<Lis
 
                 ActivityOptions transitionActivityOptions = ActivityOptions.makeSceneTransitionAnimation(ScrollingActivity.this, imageView, transitionName);
                 startActivity(i, transitionActivityOptions.toBundle());
+*/
+
+                View imageView =  v.findViewById(R.id.iconTube);
+                imageView.setTransitionName(getString(R.string.activity_image_trans));
+
+                View textTubeNameView =  v.findViewById(R.id.tubeName);
+                textTubeNameView.setTransitionName(getString(R.string.activity_text_tube_name));
+
+                View textStatusView =  v.findViewById(R.id.tubeStatus);
+                textStatusView.setTransitionName(getString(R.string.activity_text_tube_status));
+
+/*
+                View cardView =  v.findViewById(R.id.card_view);
+                cardView.setTransitionName(getString(R.string.activity_cardview_trans));
+*/
+
+
+
+                Intent intent = new Intent(ScrollingActivity.this, DetailActivity.class);
+                Pair<View, String> pair1 = Pair.create(imageView, imageView.getTransitionName());
+                Pair<View, String> pair2 = Pair.create(textTubeNameView, textTubeNameView.getTransitionName());
+                Pair<View, String> pair3 = Pair.create(textStatusView, textStatusView.getTransitionName());
+
+
+                ActivityOptionsCompat options = ActivityOptionsCompat.
+                        makeSceneTransitionAnimation(ScrollingActivity.this,pair1,pair2,pair3);
+                startActivity(intent, options.toBundle());
             }
         });
 
-        if (card.getName().equals("Circle")) {
-
-            child.setTransitionName(getString(R.string.transition_image));
-        }
 
     }
 
@@ -256,7 +263,7 @@ public class ScrollingActivity extends AppCompatActivity implements Callback<Lis
     public void onResponse(Response<List<StatusLine>> response, Retrofit retrofit) {
         if (response.isSuccess()) {
 
-            HashMap<String,String> tubeStatus=new HashMap<String,String>();
+            HashMap<String,String> tubeStatus=new HashMap<>();
 
             int size=response.body().size();
             for (int i=0;i<size;i++){

@@ -92,8 +92,8 @@
     <string name="action_settings">Settings</string>
 
 
-    <string name="transition_image">image</string>
-    <string name="title_activity_selection">SelectionActivity</string>
+
+    <string name="title_activity_selection">Choose lines to display</string>
 
     <!-- Labels  -->
     <string name="bakerloo_label">Bakerloo</string>
@@ -128,5 +128,13 @@
 
     <string name="black">#000000</string>
     <string name="white">#FFFFFF</string>
+
+
+
+    <string name="activity_image_trans">image</string>
+    <string name="activity_text_tube_name">tubeName</string>
+    <string name="activity_text_tube_status">tubeStatus</string>
+    <string name="activity_cardview_trans">card</string>
+
 
 </resources>

@@ -1,3 +1,18 @@
+/*
+ * Copyright 2016 Jorge Manrique
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package app.jorge.mobile.com.transportalert;
 
 import android.content.Intent;
@@ -11,6 +26,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
 import app.jorge.mobile.com.transportalert.model.BakerlooCardSelection;
@@ -27,6 +44,9 @@ import app.jorge.mobile.com.transportalert.model.VictoriaCardSelection;
 import app.jorge.mobile.com.transportalert.model.WaterlooCardSelection;
 
 public class SelectionActivity extends AppCompatActivity {
+
+    private Animation rotate_forward;
+    private Animation rotate_backward;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +71,43 @@ public class SelectionActivity extends AppCompatActivity {
             }
         });
 
+        rotate_forward = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate_forward);
+        rotate_backward = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate_backward);
 
+         FloatingActionButton fabMinus = (FloatingActionButton) findViewById(R.id.fabMinus);
+         fabMinus.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+
+                                            v.startAnimation(rotate_backward);
+                                            unDrawAll();
+                                        }
+                                    }
+        );
+
+        FloatingActionButton fabSelectAll = (FloatingActionButton) findViewById(R.id.fabSelect);
+        fabSelectAll.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+
+                                            v.startAnimation(rotate_forward);
+                                            drawAll();
+                                        }
+                                    }
+        );
+
+/*
+        FloatingActionButton fabSelection = (FloatingActionButton) findViewById(R.id.fabSelect);
+        fabSelection.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+
+
+            }
+        });
+*/
 
         //Bakerloo
         CardView cardBakerloo =  (CardView) this.findViewById(R.id.card_Bakerloo);
@@ -329,6 +385,7 @@ public class SelectionActivity extends AppCompatActivity {
     }
 
 
+
     private void drawCardSelection(Boolean isChecked,CardView cardView,CardSelection cs) {
 
         TextView lineName=(TextView)cardView.findViewById(cs.getIdTxtLabel());
@@ -343,5 +400,79 @@ public class SelectionActivity extends AppCompatActivity {
 
     }
 
+    private void drawAll(){
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
+        drawCardSelection(true,(CardView) this.findViewById(R.id.card_Bakerloo),new BakerlooCardSelection());
+        updateChecked(sharedPreferences, false, R.string.bakerloo_label);
+
+        drawCardSelection(true, (CardView) this.findViewById(R.id.card_Central), new CentralCardSelection());
+        updateChecked(sharedPreferences, false, R.string.central_label);
+
+        drawCardSelection(true, (CardView) this.findViewById(R.id.card_Circle), new CircleCardSelection());
+        updateChecked(sharedPreferences, false, R.string.circle_label);
+
+        drawCardSelection(true, (CardView) this.findViewById(R.id.card_District), new DistrictCardSelection());
+        updateChecked(sharedPreferences, false, R.string.district_label);
+
+        drawCardSelection(true, (CardView) this.findViewById(R.id.card_Hammersmith), new HammersmithCardSelection());
+        updateChecked(sharedPreferences, false, R.string.hammersmith_label);
+
+        drawCardSelection(true, (CardView) this.findViewById(R.id.card_Jubilee), new JubileeCardSelection());
+        updateChecked(sharedPreferences, false, R.string.jubilee_label);
+
+        drawCardSelection(true, (CardView) this.findViewById(R.id.card_Metropolitan), new MetropolitanCardSelection());
+        updateChecked(sharedPreferences, false, R.string.metropolitan_label);
+
+        drawCardSelection(true, (CardView) this.findViewById(R.id.card_Northern), new NorthernCardSelection());
+        updateChecked(sharedPreferences, false, R.string.northern_label);
+
+        drawCardSelection(true, (CardView) this.findViewById(R.id.card_Piccadilly), new PiccadillyCardSelection());
+        updateChecked(sharedPreferences, false, R.string.piccadilly_label);
+
+        drawCardSelection(true, (CardView) this.findViewById(R.id.card_Victoria), new VictoriaCardSelection());
+        updateChecked(sharedPreferences, false, R.string.victoria_label);
+
+        drawCardSelection(true, (CardView) this.findViewById(R.id.card_Waterloo), new WaterlooCardSelection());
+        updateChecked(sharedPreferences, false, R.string.waterloo_label);
+
+    }
+
+    private void unDrawAll(){
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
+        drawCardSelection(false,(CardView) this.findViewById(R.id.card_Bakerloo),new BakerlooCardSelection());
+        updateChecked(sharedPreferences, true, R.string.bakerloo_label);
+
+        drawCardSelection(false, (CardView) this.findViewById(R.id.card_Central), new CentralCardSelection());
+        updateChecked(sharedPreferences, true, R.string.central_label);
+
+        drawCardSelection(false, (CardView) this.findViewById(R.id.card_Circle), new CircleCardSelection());
+        updateChecked(sharedPreferences, true, R.string.circle_label);
+
+        drawCardSelection(false, (CardView) this.findViewById(R.id.card_District), new DistrictCardSelection());
+        updateChecked(sharedPreferences, true, R.string.district_label);
+
+        drawCardSelection(false, (CardView) this.findViewById(R.id.card_Hammersmith), new HammersmithCardSelection());
+        updateChecked(sharedPreferences, true, R.string.hammersmith_label);
+
+        drawCardSelection(false, (CardView) this.findViewById(R.id.card_Jubilee), new JubileeCardSelection());
+        updateChecked(sharedPreferences, true, R.string.jubilee_label);
+
+        drawCardSelection(false, (CardView) this.findViewById(R.id.card_Metropolitan), new MetropolitanCardSelection());
+        updateChecked(sharedPreferences, true, R.string.metropolitan_label);
+
+        drawCardSelection(false, (CardView) this.findViewById(R.id.card_Northern), new NorthernCardSelection());
+        updateChecked(sharedPreferences, true, R.string.northern_label);
+
+        drawCardSelection(false, (CardView) this.findViewById(R.id.card_Piccadilly), new PiccadillyCardSelection());
+        updateChecked(sharedPreferences, true, R.string.piccadilly_label);
+
+        drawCardSelection(false, (CardView) this.findViewById(R.id.card_Victoria), new VictoriaCardSelection());
+        updateChecked(sharedPreferences, true, R.string.victoria_label);
+
+        drawCardSelection(false, (CardView) this.findViewById(R.id.card_Waterloo), new WaterlooCardSelection());
+        updateChecked(sharedPreferences, true, R.string.waterloo_label);
+
+    }
 }
