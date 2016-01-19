@@ -16,7 +16,9 @@
 package app.jorge.mobile.com.transportalert;
 
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -41,7 +43,6 @@ import java.util.List;
 import app.jorge.mobile.com.transportalert.factory.CardFactory;
 import app.jorge.mobile.com.transportalert.factory.CardTube;
 import app.jorge.mobile.com.transportalert.service.StatusLine;
-import app.jorge.mobile.com.transportalert.service.Task;
 import app.jorge.mobile.com.transportalert.service.TaskService;
 import retrofit.Call;
 import retrofit.Callback;
@@ -307,9 +308,23 @@ public class ScrollingActivity extends AppCompatActivity implements Callback<Lis
 
     @Override
     public void onFailure(Throwable t) {
+
         // handle execution failures like no internet connectivity
-        Toast.makeText( getContext(), "Failure "+t.getCause() , Toast.LENGTH_SHORT).show();
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Error...")
+        .setMessage("No internet connectivity")
+        .setCancelable(false)
+        .setIcon(R.drawable.router_128x128)
+        .setNegativeButton("Close", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.cancel();
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
+
 
 
 
