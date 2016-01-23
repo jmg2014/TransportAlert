@@ -46,6 +46,21 @@ public class DetailActivity extends AppCompatActivity {
 
 
 
+        String category=getIntent().getStringExtra(getString(R.string.activity_info_category));
+        String description=getIntent().getStringExtra(getString(R.string.activity_info_description));
+        String additional=getIntent().getStringExtra(getString(R.string.activity_info_additional));
+
+        TextView textCategoryView = (TextView) findViewById(R.id.category);
+        textCategoryView.setText(category);
+
+        TextView textDescriptionView = (TextView)findViewById(R.id.description);
+        textDescriptionView.setText(description);
+
+        TextView textAdditionalView = (TextView)findViewById(R.id.additional);
+        textAdditionalView.setText(additional);
+
+
+
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 
             imageView.setTransitionName(getString(R.string.activity_image_trans));

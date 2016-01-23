@@ -136,5 +136,11 @@
     <string name="activity_text_tube_status">tubeStatus</string>
     <string name="activity_cardview_trans">card</string>
 
+    <string name="activity_info_category">category</string>
+    <string name="activity_info_description">description</string>
+    <string name="activity_info_additional">additional</string>
+
+
+
 
 </resources>

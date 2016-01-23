@@ -43,6 +43,7 @@ import java.util.List;
 
 import app.jorge.mobile.com.transportalert.factory.CardFactory;
 import app.jorge.mobile.com.transportalert.factory.CardTube;
+import app.jorge.mobile.com.transportalert.service.LineStatuses;
 import app.jorge.mobile.com.transportalert.service.StatusLine;
 import app.jorge.mobile.com.transportalert.service.TaskService;
 import retrofit.Call;
@@ -55,6 +56,7 @@ public class ScrollingActivity extends AppCompatActivity implements Callback<Lis
 
     private static final String TAG = ScrollingActivity.class.getSimpleName();
     private FloatingActionButton fab;
+    HashMap<String,LineStatuses> tubeStatus=new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -137,9 +139,9 @@ public class ScrollingActivity extends AppCompatActivity implements Callback<Lis
         if (isChecked) {
             addCard(item, CardFactory.TUBE_LINE.WATERLOO);
         }
-// asynchronous
 
 
+        // asynchronous
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://api.tfl.gov.uk/Line/")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -193,35 +195,15 @@ public class ScrollingActivity extends AppCompatActivity implements Callback<Lis
         child.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Toast.makeText(getContext(), "Transition", Toast.LENGTH_SHORT).show();
-                //Intent intent = new Intent(ScrollingActivity.this, DetailActivity.class);
-                //startActivity(intent);
 
-
-                /*
-                Intent i = new Intent(ScrollingActivity.this, DetailActivity.class);
-
-                ImageView imageView = (ImageView) v.findViewById(R.id.iconTube);
-                String transitionName = getString(R.string.transition_image);
-
-                ActivityOptions transitionActivityOptions = ActivityOptions.makeSceneTransitionAnimation(ScrollingActivity.this, imageView, transitionName);
-                startActivity(i, transitionActivityOptions.toBundle());
-*/
-
-                View imageView =  v.findViewById(R.id.iconTube);
+                View imageView = v.findViewById(R.id.iconTube);
                 imageView.setTransitionName(getString(R.string.activity_image_trans));
 
-                View textTubeNameView =  v.findViewById(R.id.tubeName);
+                View textTubeNameView = v.findViewById(R.id.tubeName);
                 textTubeNameView.setTransitionName(getString(R.string.activity_text_tube_name));
 
-                View textStatusView =  v.findViewById(R.id.tubeStatus);
+                View textStatusView = v.findViewById(R.id.tubeStatus);
                 textStatusView.setTransitionName(getString(R.string.activity_text_tube_status));
-
-/*
-                View cardView =  v.findViewById(R.id.card_view);
-                cardView.setTransitionName(getString(R.string.activity_cardview_trans));
-*/
-
 
 
                 Intent intent = new Intent(ScrollingActivity.this, DetailActivity.class);
@@ -232,6 +214,20 @@ public class ScrollingActivity extends AppCompatActivity implements Callback<Lis
 
                 ActivityOptionsCompat options = ActivityOptionsCompat.
                         makeSceneTransitionAnimation(ScrollingActivity.this, pair1, pair2, pair3);
+
+
+                String line = ((TextView) textTubeNameView).getText().toString();
+                LineStatuses ls = tubeStatus.get(line);
+                if ((ls != null) && (ls.getDisruption()!=null)) {
+                    intent.putExtra(getString(R.string.activity_info_category), ls.getDisruption().getCategory());
+                    intent.putExtra(getString(R.string.activity_info_description), ls.getDisruption().getDescription());
+                    intent.putExtra(getString(R.string.activity_info_additional), ls.getDisruption().getAdditionalInfo());
+                }
+                  else{
+                    intent.putExtra(getString(R.string.activity_info_category), "Good");
+                    intent.putExtra(getString(R.string.activity_info_description), "Good");
+                    intent.putExtra(getString(R.string.activity_info_additional), "Good");
+                }
                 startActivity(intent, options.toBundle());
             }
         });
@@ -265,13 +261,18 @@ public class ScrollingActivity extends AppCompatActivity implements Callback<Lis
     public void onResponse(Response<List<StatusLine>> response, Retrofit retrofit) {
         if (response.isSuccess()) {
 
-            HashMap<String,String> tubeStatus=new HashMap<>();
+            tubeStatus=new HashMap<>();
 
             int size=response.body().size();
             for (int i=0;i<size;i++){
-                String name=response.body().get(i).getName();
-                String status =response.body().get(i).getLineStatuses().get(0).getStatusSeverityDescription();
-                tubeStatus.put(name,status);
+
+                StatusLine statusLine=response.body().get(i);
+
+                String nameKey=statusLine.getName();
+                LineStatuses lineStatuses=statusLine.getLineStatuses().get(0);
+
+                //String status =response.body().get(i).getLineStatuses().get(0).getStatusSeverityDescription();
+                tubeStatus.put(nameKey,lineStatuses);
             }
             //String name=response.body().get(0).getName();
             //String status =response.body().get(0).getLineStatuses().get(0).getStatusSeverityDescription();
@@ -288,7 +289,7 @@ public class ScrollingActivity extends AppCompatActivity implements Callback<Lis
                 TextView lineName=(TextView)child.findViewById(R.id.tubeName);
                 String line_id= lineName.getText().toString();
 
-                String message=tubeStatus.get(line_id);
+                String message=tubeStatus.get(line_id).getStatusSeverityDescription();
                 if (message!=null) {
                     TextView text = (TextView) child.findViewById(R.id.tubeStatus);
                     text.setText(message);
@@ -309,6 +310,8 @@ public class ScrollingActivity extends AppCompatActivity implements Callback<Lis
 
     @Override
     public void onFailure(Throwable t) {
+
+        Toast.makeText( getContext(), t.getMessage() , Toast.LENGTH_SHORT).show();
 
         // handle execution failures like no internet connectivity
         LinearLayout item = (LinearLayout)findViewById(R.id.rv);

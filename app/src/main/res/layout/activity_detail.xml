@@ -90,8 +90,52 @@
         android:layout_below="@+id/card_view"
         android:foreground="?android:attr/selectableItemBackground"
         android:clickable="true"
-        android:layout_height="100dp"
+        android:layout_height="400dp"
         card_view:cardCornerRadius="8dp">
+
+        <LinearLayout android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/district_label"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_marginLeft="10dp"
+
+            android:layout_marginTop="10dp"
+
+            android:padding="2dp"
+            android:textColor="#000000" />
+
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/district_label"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_marginLeft="10dp"
+
+            android:layout_marginTop="10dp"
+
+            android:padding="2dp"
+            android:textColor="#000000" />
+        <TextView
+            android:id="@+id/additional"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/district_label"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_marginLeft="10dp"
+            android:transitionName="@string/activity_text_tube_name"
+            android:layout_marginTop="10dp"
+
+            android:padding="2dp"
+            android:textColor="#000000" />
+</LinearLayout>
+
         </android.support.v7.widget.CardView>
 
     <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
