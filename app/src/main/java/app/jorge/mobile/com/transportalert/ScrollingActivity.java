@@ -25,6 +25,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
@@ -230,7 +231,7 @@ public class ScrollingActivity extends AppCompatActivity implements Callback<Lis
 
 
                 ActivityOptionsCompat options = ActivityOptionsCompat.
-                        makeSceneTransitionAnimation(ScrollingActivity.this,pair1,pair2,pair3);
+                        makeSceneTransitionAnimation(ScrollingActivity.this, pair1, pair2, pair3);
                 startActivity(intent, options.toBundle());
             }
         });
@@ -310,19 +311,25 @@ public class ScrollingActivity extends AppCompatActivity implements Callback<Lis
     public void onFailure(Throwable t) {
 
         // handle execution failures like no internet connectivity
+        LinearLayout item = (LinearLayout)findViewById(R.id.rv);
+        Snackbar snackbar = Snackbar
+                .make(item, "No internet connection!", Snackbar.LENGTH_INDEFINITE)
+                .setAction("RETRY", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        finish();
+                        startActivity(getIntent());
+                    }
+                });
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Error...")
-        .setMessage("No internet connectivity")
-        .setCancelable(false)
-        .setIcon(R.drawable.router_128x128)
-        .setNegativeButton("Close", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                dialog.cancel();
-            }
-        });
-        AlertDialog alert = builder.create();
-        alert.show();
+        // Changing message text color
+        snackbar.setActionTextColor(Color.RED);
+
+        // Changing action button text color
+        View sbView = snackbar.getView();
+        TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+        textView.setTextColor(Color.YELLOW);
+        snackbar.show();
     }
 
 

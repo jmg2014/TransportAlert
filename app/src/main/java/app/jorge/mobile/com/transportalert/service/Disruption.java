@@ -15,38 +15,36 @@
  */
 package app.jorge.mobile.com.transportalert.service;
 
-import java.util.List;
+
+public class Disruption {
 
 
-public class StatusLine {
+    private String category;
+    private String description;
+    private String additionalInfo;
 
-    private String id;
 
-    private String name;
-
-    public String getName() {
-        return name;
+    public String getAdditionalInfo() {
+        return additionalInfo;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setAdditionalInfo(String additionalInfo) {
+        this.additionalInfo = additionalInfo;
     }
 
-    private List<LineStatuses> lineStatuses;
-
-    public List<LineStatuses> getLineStatuses() {
-        return lineStatuses;
+    public String getDescription() {
+        return description;
     }
 
-    public void setLineStatuses(List<LineStatuses> lineStatuses) {
-        this.lineStatuses = lineStatuses;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public String getId() {
-        return id;
+    public String getCategory() {
+        return category;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setCategory(String category) {
+        this.category = category;
     }
 }
