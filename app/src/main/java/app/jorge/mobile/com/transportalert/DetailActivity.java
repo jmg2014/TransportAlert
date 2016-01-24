@@ -60,6 +60,15 @@ public class DetailActivity extends AppCompatActivity {
         TextView textAdditionalView = (TextView)findViewById(R.id.additional);
         textAdditionalView.setText(additional);
 
+        if (status.equals(getString(R.string.status_good_service))){
+            textCategoryView.setVisibility(View.GONE);
+            textDescriptionView.setVisibility(View.GONE);
+            textAdditionalView.setVisibility(View.GONE);
+        }
+        else{
+            ImageView starView = (ImageView) findViewById(R.id.iconGoodService);
+            starView.setVisibility(View.GONE);
+        }
 
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
