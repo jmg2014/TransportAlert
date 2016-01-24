@@ -222,11 +222,15 @@ public class ScrollingActivity extends AppCompatActivity implements Callback<Lis
                     intent.putExtra(getString(R.string.activity_info_category), ls.getDisruption().getCategory());
                     intent.putExtra(getString(R.string.activity_info_description), ls.getDisruption().getDescription());
                     intent.putExtra(getString(R.string.activity_info_additional), ls.getDisruption().getAdditionalInfo());
+                    intent.putExtra(getString(R.string.activity_info_icon), line);
+                    
+                    
                 }
                   else{
                     intent.putExtra(getString(R.string.activity_info_category), "Good");
                     intent.putExtra(getString(R.string.activity_info_description), "Good");
                     intent.putExtra(getString(R.string.activity_info_additional), "Good");
+                    intent.putExtra(getString(R.string.activity_info_icon), line);
                 }
                 startActivity(intent, options.toBundle());
             }
@@ -234,6 +238,7 @@ public class ScrollingActivity extends AppCompatActivity implements Callback<Lis
 
 
     }
+
 
 
     @Override

@@ -103,7 +103,7 @@
     <string name="hammersmith_label">Hammersmith &amp; City</string>
     <string name="jubilee_label">Jubilee</string>
     <string name="metropolitan_label">Metropolitan</string>
-    <string name="northern_label">Nothern</string>
+    <string name="northern_label">Northern</string>
     <string name="piccadilly_label">Piccadilly</string>
     <string name="victoria_label">Victoria</string>
     <string name="waterloo_label">Waterloo &amp; City</string>
@@ -139,6 +139,7 @@
     <string name="activity_info_category">category</string>
     <string name="activity_info_description">description</string>
     <string name="activity_info_additional">additional</string>
+    <string name="activity_info_icon">icon</string>
 
 
 

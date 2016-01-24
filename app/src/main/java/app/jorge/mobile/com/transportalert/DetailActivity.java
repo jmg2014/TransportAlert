@@ -21,6 +21,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import app.jorge.mobile.com.transportalert.factory.CardFactory;
 import app.jorge.mobile.com.transportalert.factory.CardTube;
@@ -38,7 +39,9 @@ public class DetailActivity extends AppCompatActivity {
 
         textStatusView.setText("Hey!");
         textTubeName.setText("Circle");
-        //imageView.setBackgroundResource(R.drawable.circle_400x400);
+
+        imageView.setBackgroundResource(R.drawable.circle_400x400);
+
 
 
         CardTube card= CardFactory.getCard(CardFactory.TUBE_LINE.CIRCLE);
@@ -49,6 +52,12 @@ public class DetailActivity extends AppCompatActivity {
         String category=getIntent().getStringExtra(getString(R.string.activity_info_category));
         String description=getIntent().getStringExtra(getString(R.string.activity_info_description));
         String additional=getIntent().getStringExtra(getString(R.string.activity_info_additional));
+        String name=getIntent().getStringExtra(getString(R.string.activity_info_icon));
+
+        textTubeName.setText(name);
+        imageView.setBackgroundResource(getIconLine(name));
+
+
 
         TextView textCategoryView = (TextView) findViewById(R.id.category);
         textCategoryView.setText(category);
@@ -69,4 +78,48 @@ public class DetailActivity extends AppCompatActivity {
 
         }
     }
+
+    private int getIconLine(String line) {
+        //Toast.makeText( getContext(), line , Toast.LENGTH_SHORT).show();
+
+        if (line.equals(getString(R.string.bakerloo_label))){
+            return R.drawable.bakerloo_400x400;
+        }
+        else if (line.equals(getString(R.string.central_label))){
+            return R.drawable.central_line_400x400;
+        }
+        else if (line.equals(getString(R.string.circle_label))){
+            return R.drawable.circle_400x400;
+        }
+        else if (line.equals(getString(R.string.district_label))){
+            return R.drawable.district_400x400;
+        }
+        else if (line.equals(getString(R.string.hammersmith_label))){
+            return R.drawable.hc_400x400;
+        }
+        else if (line.equals(getString(R.string.jubilee_label))){
+            return R.drawable.jubilee_400x400;
+        }
+        else if (line.equals(getString(R.string.metropolitan_label))){
+            return R.drawable.metropolitan_400x400;
+        }
+        else if (line.equals(getString(R.string.northern_label))){
+            return R.drawable.nothern_400x400;
+        }
+        else if (line.equals(getString(R.string.piccadilly_label))){
+            return R.drawable.picadilly_400x400;
+        }
+        else if (line.equals(getString(R.string.victoria_label))){
+            return R.drawable.victoria_400x400;
+        }
+        else if (line.equals(getString(R.string.waterloo_label))){
+            return R.drawable.waterloo_400x400;
+        }
+
+
+
+
+        return 5;
+    }
+
 }
