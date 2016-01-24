@@ -36,27 +36,19 @@ public class DetailActivity extends AppCompatActivity {
         ImageView imageView = (ImageView) findViewById(R.id.iconTube);
         TextView textTubeName = (TextView) findViewById(R.id.tubeName);
         TextView textStatusView = (TextView)findViewById(R.id.tubeStatus);
-
-        textStatusView.setText("Hey!");
-        textTubeName.setText("Circle");
-
-        imageView.setBackgroundResource(R.drawable.circle_400x400);
-
-
-
-        CardTube card= CardFactory.getCard(CardFactory.TUBE_LINE.CIRCLE);
-        View child = getLayoutInflater().inflate(R.layout.activity_detail, null);
-
-
+        ImageView statusView = (ImageView) findViewById(R.id.iconStatusImage);
 
         String category=getIntent().getStringExtra(getString(R.string.activity_info_category));
         String description=getIntent().getStringExtra(getString(R.string.activity_info_description));
         String additional=getIntent().getStringExtra(getString(R.string.activity_info_additional));
         String name=getIntent().getStringExtra(getString(R.string.activity_info_icon));
+        String status=getIntent().getStringExtra(getString(R.string.activity_info_status));
+
 
         textTubeName.setText(name);
+        textStatusView.setText(status);
         imageView.setBackgroundResource(getIconLine(name));
-
+        statusView.setBackgroundResource(getStatusIcon(status));
 
 
         TextView textCategoryView = (TextView) findViewById(R.id.category);
@@ -115,11 +107,19 @@ public class DetailActivity extends AppCompatActivity {
         else if (line.equals(getString(R.string.waterloo_label))){
             return R.drawable.waterloo_400x400;
         }
-
-
-
-
-        return 5;
+        return -1;
     }
 
+    private int getStatusIcon(String status){
+
+        if (getString(R.string.status_good_service).equals(status)){
+            return R.drawable.thumbs_up_128x128;
+        }
+        else if (getString(R.string.status_minor_delays).equals(status)){
+            return R.drawable.hourglass_128x128;
+        }
+        else{
+            return R.drawable.fire_128x128;
+        }
+    }
 }

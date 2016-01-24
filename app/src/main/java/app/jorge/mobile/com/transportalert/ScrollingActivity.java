@@ -217,12 +217,15 @@ public class ScrollingActivity extends AppCompatActivity implements Callback<Lis
 
 
                 String line = ((TextView) textTubeNameView).getText().toString();
+                String status = ((TextView) textStatusView).getText().toString();
+
                 LineStatuses ls = tubeStatus.get(line);
                 if ((ls != null) && (ls.getDisruption()!=null)) {
                     intent.putExtra(getString(R.string.activity_info_category), ls.getDisruption().getCategory());
                     intent.putExtra(getString(R.string.activity_info_description), ls.getDisruption().getDescription());
                     intent.putExtra(getString(R.string.activity_info_additional), ls.getDisruption().getAdditionalInfo());
                     intent.putExtra(getString(R.string.activity_info_icon), line);
+                    intent.putExtra(getString(R.string.activity_info_status), status);
                     
                     
                 }
@@ -231,6 +234,7 @@ public class ScrollingActivity extends AppCompatActivity implements Callback<Lis
                     intent.putExtra(getString(R.string.activity_info_description), "Good");
                     intent.putExtra(getString(R.string.activity_info_additional), "Good");
                     intent.putExtra(getString(R.string.activity_info_icon), line);
+                    intent.putExtra(getString(R.string.activity_info_status), status);
                 }
                 startActivity(intent, options.toBundle());
             }

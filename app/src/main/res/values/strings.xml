@@ -140,6 +140,10 @@
     <string name="activity_info_description">description</string>
     <string name="activity_info_additional">additional</string>
     <string name="activity_info_icon">icon</string>
+    <string name="activity_info_status">status</string>
+
+    <string name="status_good_service">Good Service</string>
+    <string name="status_minor_delays">Minor delays</string>
 
 
 
