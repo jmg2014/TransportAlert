@@ -16,9 +16,8 @@
 package app.jorge.mobile.com.transportalert;
 
 
-import android.app.AlertDialog;
+
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -28,6 +27,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.util.Pair;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -52,11 +52,13 @@ import retrofit.GsonConverterFactory;
 import retrofit.Response;
 import retrofit.Retrofit;
 
-public class ScrollingActivity extends AppCompatActivity implements Callback<List<StatusLine>>,View.OnClickListener{
+public class ScrollingActivity extends AppCompatActivity
+        implements Callback<List<StatusLine>>,View.OnClickListener,SwipeRefreshLayout.OnRefreshListener{
 
     private static final String TAG = ScrollingActivity.class.getSimpleName();
     private FloatingActionButton fab;
     HashMap<String,LineStatuses> tubeStatus=new HashMap<>();
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,10 +71,38 @@ public class ScrollingActivity extends AppCompatActivity implements Callback<Lis
 
         fab.setOnClickListener(this);
 
-
-
-
         LinearLayout item = (LinearLayout) findViewById(R.id.rv);
+         addAllCards(item);
+
+
+        // asynchronous
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://api.tfl.gov.uk/Line/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+
+        TaskService taskService = retrofit.create(TaskService.class);
+
+
+        Call<List<StatusLine>> call = taskService.login(getString(R.string.app_id),getString(R.string.app_key));
+
+
+        call.enqueue(this);
+
+
+        //view.setVisibility(View.GONE);
+        item.setNestedScrollingEnabled(true);
+
+
+
+        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_layout);
+        mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
+        mSwipeRefreshLayout.setOnRefreshListener(this);
+    }
+
+    private void addAllCards(LinearLayout item) {
+
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         boolean isChecked = sharedPreferences.getBoolean(getString(R.string.bakerloo_label), false);
@@ -99,7 +129,7 @@ public class ScrollingActivity extends AppCompatActivity implements Callback<Lis
         }
 
         //DLR
-       // addCard(item,CardFactory.TUBE_LINE.DLR);
+        // addCard(item,CardFactory.TUBE_LINE.DLR);
 
         //HC
         isChecked = sharedPreferences.getBoolean(getString(R.string.hammersmith_label), false);
@@ -122,7 +152,7 @@ public class ScrollingActivity extends AppCompatActivity implements Callback<Lis
             addCard(item, CardFactory.TUBE_LINE.NORTHERN);
         }
         //Overground
-       // addCard(item,CardFactory.TUBE_LINE.OVERGROUND);
+        // addCard(item,CardFactory.TUBE_LINE.OVERGROUND);
 
         //Piccadilly
         isChecked = sharedPreferences.getBoolean(getString(R.string.piccadilly_label), false);
@@ -139,26 +169,6 @@ public class ScrollingActivity extends AppCompatActivity implements Callback<Lis
         if (isChecked) {
             addCard(item, CardFactory.TUBE_LINE.WATERLOO);
         }
-
-
-        // asynchronous
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://api.tfl.gov.uk/Line/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-
-        TaskService taskService = retrofit.create(TaskService.class);
-
-
-        Call<List<StatusLine>> call = taskService.login(getString(R.string.app_id),getString(R.string.app_key));
-
-
-        call.enqueue(this);
-
-
-        //view.setVisibility(View.GONE);
-
 
     }
 
@@ -345,9 +355,26 @@ public class ScrollingActivity extends AppCompatActivity implements Callback<Lis
     }
 
 
+    @Override
+    public void onRefresh() {
+        mSwipeRefreshLayout.setRefreshing(false);
+        LinearLayout item = (LinearLayout) findViewById(R.id.rv);
+        if(item.getChildCount() > 0)
+            item.removeAllViews();
+        addAllCards(item);
+        // asynchronous
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://api.tfl.gov.uk/Line/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
 
 
+        TaskService taskService = retrofit.create(TaskService.class);
 
 
+        Call<List<StatusLine>> call = taskService.login(getString(R.string.app_id),getString(R.string.app_key));
 
+
+        call.enqueue(this);
+    }
 }
