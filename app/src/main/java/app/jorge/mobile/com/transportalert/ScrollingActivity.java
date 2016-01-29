@@ -357,10 +357,15 @@ public class ScrollingActivity extends AppCompatActivity
 
     @Override
     public void onRefresh() {
+
         mSwipeRefreshLayout.setRefreshing(false);
+
         LinearLayout item = (LinearLayout) findViewById(R.id.rv);
-        if(item.getChildCount() > 0)
+
+        if(item.getChildCount() > 0) {
             item.removeAllViews();
+        }
+
         addAllCards(item);
         // asynchronous
         Retrofit retrofit = new Retrofit.Builder()
@@ -371,9 +376,7 @@ public class ScrollingActivity extends AppCompatActivity
 
         TaskService taskService = retrofit.create(TaskService.class);
 
-
         Call<List<StatusLine>> call = taskService.login(getString(R.string.app_id),getString(R.string.app_key));
-
 
         call.enqueue(this);
     }

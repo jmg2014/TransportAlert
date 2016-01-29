@@ -96,18 +96,6 @@ public class SelectionActivity extends AppCompatActivity {
                                     }
         );
 
-/*
-        FloatingActionButton fabSelection = (FloatingActionButton) findViewById(R.id.fabSelect);
-        fabSelection.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-
-
-            }
-        });
-*/
 
         //Bakerloo
         CardView cardBakerloo =  (CardView) this.findViewById(R.id.card_Bakerloo);
@@ -474,5 +462,11 @@ public class SelectionActivity extends AppCompatActivity {
         drawCardSelection(false, (CardView) this.findViewById(R.id.card_Waterloo), new WaterlooCardSelection());
         updateChecked(sharedPreferences, true, R.string.waterloo_label);
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(SelectionActivity.this, ScrollingActivity.class);
+        startActivity(intent);
     }
 }
