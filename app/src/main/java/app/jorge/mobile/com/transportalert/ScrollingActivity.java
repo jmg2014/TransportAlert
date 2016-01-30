@@ -20,6 +20,9 @@ package app.jorge.mobile.com.transportalert;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -190,7 +193,9 @@ public class ScrollingActivity extends AppCompatActivity
         View child = getLayoutInflater().inflate(R.layout.tube_line, null);
 
         ImageView imageView= (ImageView) child.findViewById(R.id.iconTube);
-        imageView.setImageResource(card.getIcon());
+        //imageView.setImageResource(card.getIcon());
+        imageView.setImageBitmap(
+                decodeSampledBitmapFromResource(getResources(), card.getIcon(), 100, 100));
 
 
         TextView lineName=(TextView)child.findViewById(R.id.tubeName);
@@ -230,16 +235,15 @@ public class ScrollingActivity extends AppCompatActivity
                 String status = ((TextView) textStatusView).getText().toString();
 
                 LineStatuses ls = tubeStatus.get(line);
-                if ((ls != null) && (ls.getDisruption()!=null)) {
+                if ((ls != null) && (ls.getDisruption() != null)) {
                     intent.putExtra(getString(R.string.activity_info_category), ls.getDisruption().getCategory());
                     intent.putExtra(getString(R.string.activity_info_description), ls.getDisruption().getDescription());
                     intent.putExtra(getString(R.string.activity_info_additional), ls.getDisruption().getAdditionalInfo());
                     intent.putExtra(getString(R.string.activity_info_icon), line);
                     intent.putExtra(getString(R.string.activity_info_status), status);
-                    
-                    
-                }
-                  else{
+
+
+                } else {
                     intent.putExtra(getString(R.string.activity_info_category), "Good");
                     intent.putExtra(getString(R.string.activity_info_description), "Good");
                     intent.putExtra(getString(R.string.activity_info_additional), "Good");
@@ -323,14 +327,14 @@ public class ScrollingActivity extends AppCompatActivity
 
             // handle request errors
             ResponseBody errorBody = response.errorBody();
-            Toast.makeText( getContext(), "Error code "+errorBody.toString()+" "+statusCode , Toast.LENGTH_SHORT).show();
+            Toast.makeText( getApplicationContext(), "Error code "+errorBody.toString()+" "+statusCode , Toast.LENGTH_SHORT).show();
         }
     }
 
     @Override
     public void onFailure(Throwable t) {
 
-        Toast.makeText( getContext(), t.getMessage() , Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), t.getMessage() , Toast.LENGTH_SHORT).show();
 
         // handle execution failures like no internet connectivity
         LinearLayout item = (LinearLayout)findViewById(R.id.rv);
@@ -379,5 +383,46 @@ public class ScrollingActivity extends AppCompatActivity
         Call<List<StatusLine>> call = taskService.login(getString(R.string.app_id),getString(R.string.app_key));
 
         call.enqueue(this);
+    }
+
+
+
+    public static int calculateInSampleSize(
+            BitmapFactory.Options options, int reqWidth, int reqHeight) {
+        // Raw height and width of image
+        final int height = options.outHeight;
+        final int width = options.outWidth;
+        int inSampleSize = 1;
+
+        if (height > reqHeight || width > reqWidth) {
+
+            final int halfHeight = height / 2;
+            final int halfWidth = width / 2;
+
+            // Calculate the largest inSampleSize value that is a power of 2 and keeps both
+            // height and width larger than the requested height and width.
+            while ((halfHeight / inSampleSize) > reqHeight
+                    && (halfWidth / inSampleSize) > reqWidth) {
+                inSampleSize *= 2;
+            }
+        }
+
+        return inSampleSize;
+    }
+
+    public static Bitmap decodeSampledBitmapFromResource(Resources res, int resId,
+                                                         int reqWidth, int reqHeight) {
+
+        // First decode with inJustDecodeBounds=true to check dimensions
+        final BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeResource(res, resId, options);
+
+        // Calculate inSampleSize
+        options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
+
+        // Decode bitmap with inSampleSize set
+        options.inJustDecodeBounds = false;
+        return BitmapFactory.decodeResource(res, resId, options);
     }
 }
