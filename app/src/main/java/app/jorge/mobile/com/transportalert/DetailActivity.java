@@ -116,6 +116,15 @@ public class DetailActivity extends AppCompatActivity {
         else if (line.equals(getString(R.string.waterloo_label))){
             return R.drawable.waterloo_400x400;
         }
+        else if (line.equals(getString(R.string.london_overground_label))){
+            return R.drawable.overground_wbg_400x400;
+        }
+        else if (line.equals(getString(R.string.tfl_rail_label))){
+            return R.drawable.tflrail_wbg400x400;
+        }
+        else if (line.equals(getString(R.string.dlr_label))){
+            return R.drawable.dlr_wbg400x400;
+        }
         return -1;
     }
 

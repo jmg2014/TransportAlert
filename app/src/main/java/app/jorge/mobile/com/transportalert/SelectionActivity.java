@@ -35,11 +35,14 @@ import app.jorge.mobile.com.transportalert.model.CardSelection;
 import app.jorge.mobile.com.transportalert.model.CentralCardSelection;
 import app.jorge.mobile.com.transportalert.model.CircleCardSelection;
 import app.jorge.mobile.com.transportalert.model.DistrictCardSelection;
+import app.jorge.mobile.com.transportalert.model.DlrCardSelection;
 import app.jorge.mobile.com.transportalert.model.HammersmithCardSelection;
 import app.jorge.mobile.com.transportalert.model.JubileeCardSelection;
+import app.jorge.mobile.com.transportalert.model.LondonOvergroundCardSelection;
 import app.jorge.mobile.com.transportalert.model.MetropolitanCardSelection;
 import app.jorge.mobile.com.transportalert.model.NorthernCardSelection;
 import app.jorge.mobile.com.transportalert.model.PiccadillyCardSelection;
+import app.jorge.mobile.com.transportalert.model.TflRailCardSelection;
 import app.jorge.mobile.com.transportalert.model.VictoriaCardSelection;
 import app.jorge.mobile.com.transportalert.model.WaterlooCardSelection;
 
@@ -173,6 +176,28 @@ public class SelectionActivity extends AppCompatActivity {
         boolean isWaterlooChecked=sharedPreferences.getBoolean(getString(waterlooSelection.getIdKeyProperty()), false);
         drawCardSelection(isWaterlooChecked, cardWaterloo, waterlooSelection);
         addWaterlooListener(cardWaterloo);
+
+        //London Overground
+        CardView cardOverground =  (CardView) this.findViewById(R.id.card_Overground);
+        CardSelection overgroundlSelection=new LondonOvergroundCardSelection();
+        boolean isOvergrondChecked=sharedPreferences.getBoolean(getString(overgroundlSelection.getIdKeyProperty()), false);
+        drawCardSelection(isOvergrondChecked, cardOverground, overgroundlSelection);
+        addOvergroundListener(cardOverground);
+
+        //Tfl Rail
+        CardView cardTflRail =  (CardView) this.findViewById(R.id.card_TflRail);
+        CardSelection tflSelection=new TflRailCardSelection();
+        boolean isTflRailChecked=sharedPreferences.getBoolean(getString(tflSelection.getIdKeyProperty()), false);
+        drawCardSelection(isTflRailChecked, cardTflRail, tflSelection);
+        addTflRailListener(cardTflRail);
+
+
+        //DLR
+        CardView cardDlr =  (CardView) this.findViewById(R.id.card_dlr);
+        CardSelection dlrSelection=new DlrCardSelection();
+        boolean isDlrChecked=sharedPreferences.getBoolean(getString(dlrSelection.getIdKeyProperty()), false);
+        drawCardSelection(isDlrChecked, cardDlr, dlrSelection);
+        addDlrListener(cardDlr);
     }
 
 
@@ -366,6 +391,59 @@ public class SelectionActivity extends AppCompatActivity {
             }
         });
     }
+    private void addTflRailListener(CardView card) {
+        card.setOnClickListener(new View.OnClickListener() {
+
+
+            @Override
+            public void onClick(View v) {
+                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
+                boolean isChecked = sharedPreferences.getBoolean(getString(R.string.tfl_rail_label), false);
+
+                drawCardSelection(!isChecked, (CardView) v, new TflRailCardSelection());
+
+                updateChecked(sharedPreferences, isChecked, R.string.tfl_rail_label);
+
+            }
+        });
+    }
+
+    private void addOvergroundListener(CardView card) {
+        card.setOnClickListener(new View.OnClickListener() {
+
+
+            @Override
+            public void onClick(View v) {
+                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
+                boolean isChecked = sharedPreferences.getBoolean(getString(R.string.london_overground_label), false);
+
+                drawCardSelection(!isChecked, (CardView) v, new LondonOvergroundCardSelection());
+
+                updateChecked(sharedPreferences, isChecked, R.string.london_overground_label);
+
+            }
+        });
+    }
+
+    private void addDlrListener(CardView card) {
+        card.setOnClickListener(new View.OnClickListener() {
+
+
+            @Override
+            public void onClick(View v) {
+                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
+                boolean isChecked = sharedPreferences.getBoolean(getString(R.string.dlr_label), false);
+
+                drawCardSelection(!isChecked, (CardView) v, new DlrCardSelection());
+
+                updateChecked(sharedPreferences, isChecked, R.string.dlr_label);
+
+            }
+        });
+    }
     private void updateChecked(SharedPreferences sharedPreferences, boolean isChecked,int key) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean(getString(key), !isChecked);
@@ -424,12 +502,21 @@ public class SelectionActivity extends AppCompatActivity {
         drawCardSelection(true, (CardView) this.findViewById(R.id.card_Waterloo), new WaterlooCardSelection());
         updateChecked(sharedPreferences, false, R.string.waterloo_label);
 
+        drawCardSelection(true, (CardView) this.findViewById(R.id.card_Overground), new LondonOvergroundCardSelection());
+        updateChecked(sharedPreferences, false, R.string.london_overground_label);
+
+        drawCardSelection(true, (CardView) this.findViewById(R.id.card_TflRail), new TflRailCardSelection());
+        updateChecked(sharedPreferences, false, R.string.tfl_rail_label);
+
+        drawCardSelection(true, (CardView) this.findViewById(R.id.card_dlr), new DlrCardSelection());
+        updateChecked(sharedPreferences, false, R.string.dlr_label);
+
     }
 
     private void unDrawAll(){
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
-        drawCardSelection(false,(CardView) this.findViewById(R.id.card_Bakerloo),new BakerlooCardSelection());
+        drawCardSelection(false, (CardView) this.findViewById(R.id.card_Bakerloo), new BakerlooCardSelection());
         updateChecked(sharedPreferences, true, R.string.bakerloo_label);
 
         drawCardSelection(false, (CardView) this.findViewById(R.id.card_Central), new CentralCardSelection());
@@ -461,6 +548,15 @@ public class SelectionActivity extends AppCompatActivity {
 
         drawCardSelection(false, (CardView) this.findViewById(R.id.card_Waterloo), new WaterlooCardSelection());
         updateChecked(sharedPreferences, true, R.string.waterloo_label);
+
+        drawCardSelection(false, (CardView) this.findViewById(R.id.card_Overground), new LondonOvergroundCardSelection());
+        updateChecked(sharedPreferences, true, R.string.london_overground_label);
+
+        drawCardSelection(false, (CardView) this.findViewById(R.id.card_TflRail), new TflRailCardSelection());
+        updateChecked(sharedPreferences, true, R.string.tfl_rail_label);
+
+        drawCardSelection(false, (CardView) this.findViewById(R.id.card_dlr), new DlrCardSelection());
+        updateChecked(sharedPreferences, true, R.string.dlr_label);
 
     }
 

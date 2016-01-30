@@ -20,7 +20,7 @@ import app.jorge.mobile.com.transportalert.R;
 
 public class CardFactory {
 
-    public  enum TUBE_LINE{BAKERLOO,CENTRAL,CIRCLE,DISTRICT,DLR,HC,JUBILEE,METROPOLITAN,NORTHERN,OVERGROUND,PICCADILLY,VICTORIA,WATERLOO}
+    public  enum TUBE_LINE{BAKERLOO,CENTRAL,CIRCLE,DISTRICT,DLR,HC,JUBILEE,METROPOLITAN,NORTHERN,OVERGROUND,PICCADILLY,VICTORIA,WATERLOO,TFLRAIL}
 
 
     public static CardTube getCard(TUBE_LINE line){
@@ -49,7 +49,7 @@ public class CardFactory {
 
         else if (line.equals(TUBE_LINE.DLR)) {
 
-            return new CardTube("DLR", R.drawable.dlr_400x400, "Checking status...", "#00BBB4");
+            return new CardTube("DLR", R.drawable.dlr_wbg400x400, "Checking status...", "#00BBB4");
 
         }
         else if (line.equals(TUBE_LINE.HC)) {
@@ -74,7 +74,7 @@ public class CardFactory {
         }
         else if (line.equals(TUBE_LINE.OVERGROUND)) {
 
-            return new CardTube("London Overground", R.drawable.overground_400x400, "Checking status...", "#F86C00");
+            return new CardTube("London Overground", R.drawable.overground_wbg_400x400, "Checking status...", "#F86C00");
 
         }
         else if (line.equals(TUBE_LINE.PICCADILLY)) {
@@ -90,6 +90,10 @@ public class CardFactory {
         else if (line.equals(TUBE_LINE.WATERLOO)) {
 
             return new CardTube("Waterloo & City", R.drawable.waterloo_400x400, "Checking status...", "#70C3CE");
+        }
+        else if (line.equals(TUBE_LINE.TFLRAIL)) {
+                return new CardTube("TfL Rail", R.drawable.tflrail_wbg400x400, "Checking status...", "#233589");
+
 
         }else{
             return new CardTube("UNKNOWN", R.drawable.waterloo_400x400, "Checking status...", "#70C3CE");

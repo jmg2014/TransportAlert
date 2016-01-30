@@ -80,7 +80,7 @@ public class ScrollingActivity extends AppCompatActivity
 
         // asynchronous
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://api.tfl.gov.uk/Line/")
+                .baseUrl(getString(R.string.url_tfl_api))
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -131,8 +131,7 @@ public class ScrollingActivity extends AppCompatActivity
             addCard(item, CardFactory.TUBE_LINE.DISTRICT);
         }
 
-        //DLR
-        // addCard(item,CardFactory.TUBE_LINE.DLR);
+
 
         //HC
         isChecked = sharedPreferences.getBoolean(getString(R.string.hammersmith_label), false);
@@ -154,8 +153,7 @@ public class ScrollingActivity extends AppCompatActivity
         if (isChecked) {
             addCard(item, CardFactory.TUBE_LINE.NORTHERN);
         }
-        //Overground
-        // addCard(item,CardFactory.TUBE_LINE.OVERGROUND);
+
 
         //Piccadilly
         isChecked = sharedPreferences.getBoolean(getString(R.string.piccadilly_label), false);
@@ -173,6 +171,23 @@ public class ScrollingActivity extends AppCompatActivity
             addCard(item, CardFactory.TUBE_LINE.WATERLOO);
         }
 
+        //Overground
+        isChecked = sharedPreferences.getBoolean(getString(R.string.london_overground_label), false);
+        if (isChecked) {
+            addCard(item, CardFactory.TUBE_LINE.OVERGROUND);
+        }
+        //TFL Rail
+        isChecked = sharedPreferences.getBoolean(getString(R.string.tfl_rail_label), false);
+        if (isChecked) {
+            addCard(item, CardFactory.TUBE_LINE.TFLRAIL);
+        }
+
+
+        //DLR
+        isChecked = sharedPreferences.getBoolean(getString(R.string.dlr_label), false);
+        if (isChecked) {
+            addCard(item, CardFactory.TUBE_LINE.DLR);
+        }
     }
 
     @Override
@@ -373,7 +388,7 @@ public class ScrollingActivity extends AppCompatActivity
         addAllCards(item);
         // asynchronous
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://api.tfl.gov.uk/Line/")
+                .baseUrl(getString(R.string.url_tfl_api))
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 

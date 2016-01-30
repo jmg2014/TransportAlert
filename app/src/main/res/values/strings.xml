@@ -4,6 +4,9 @@
     <string name="action_settings">Settings</string>
 
 
+    <!-- URL TFL API-->
+    <string name="url_tfl_api">https://api.tfl.gov.uk/Line/</string>
+
     <!--Activity names -->
     <string name="title_activity_selection">Choose lines to display</string>
     <string name="title_activity_detail">Current status</string>
@@ -20,7 +23,9 @@
     <string name="piccadilly_label">Piccadilly</string>
     <string name="victoria_label">Victoria</string>
     <string name="waterloo_label">Waterloo &amp; City</string>
-
+    <string name="tfl_rail_label">TfL Rail</string>
+    <string name="london_overground_label">London Overground</string>
+    <string name="dlr_label">DLR</string>
 
     <string name="bakerloo_colour">#AE6118</string>
     <string name="central_colour">#E41F1F</string>
@@ -38,6 +43,11 @@
     <string name="victoria_colour">#009FE0</string>
     <string name="waterloo_colour">#70C3CE</string>
     <string name="waterloo_colour_second">#113892</string>
+
+    <string name="london_overground_colour">#F86000</string>
+    <string name="tflRail_colour">#233589</string>
+    <string name="dlr_colour">#00BBB4</string>
+
 
     <string name="black">#000000</string>
     <string name="white">#FFFFFF</string>

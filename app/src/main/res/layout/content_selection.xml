@@ -12,6 +12,11 @@
     tools:context="app.jorge.mobile.com.transportalert.SelectionActivity"
     tools:showIn="@layout/activity_selection">
 
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:id="@+id/scroll"
+        android:layout_height="match_parent">
+
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
@@ -242,8 +247,30 @@
         </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/card_Waterloo"
+        card_view:cardPreventCornerOverlap="false"
+        card_view:cardUseCompatPadding="true"
+        android:layout_gravity="center"
+        android:clickable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        card_view:cardCornerRadius="8dp">
+
+        <TextView
+            android:id="@+id/txtWaterloo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/waterloo_label"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_gravity="center"
+            android:padding="2dp"/>
+    </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
             xmlns:card_view="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/card_Waterloo"
+            android:id="@+id/card_Overground"
             card_view:cardPreventCornerOverlap="false"
             card_view:cardUseCompatPadding="true"
             android:layout_gravity="center"
@@ -254,13 +281,62 @@
             card_view:cardCornerRadius="8dp">
 
             <TextView
-                android:id="@+id/txtWaterloo"
+                android:id="@+id/txtOvergroud"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/waterloo_label"
+                android:text="@string/london_overground_label"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:layout_gravity="center"
                 android:padding="2dp"/>
         </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/card_TflRail"
+            card_view:cardPreventCornerOverlap="false"
+            card_view:cardUseCompatPadding="true"
+            android:layout_gravity="center"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            card_view:cardCornerRadius="8dp">
+
+            <TextView
+                android:id="@+id/txtTflRail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tfl_rail_label"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_gravity="center"
+                android:padding="2dp"/>
+        </android.support.v7.widget.CardView>
+
+
+    <android.support.v7.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/card_dlr"
+        card_view:cardPreventCornerOverlap="false"
+        card_view:cardUseCompatPadding="true"
+        android:layout_gravity="center"
+        android:clickable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        card_view:cardCornerRadius="8dp">
+
+        <TextView
+            android:id="@+id/txtDLR"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/dlr_label"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_gravity="center"
+            android:padding="2dp"/>
+    </android.support.v7.widget.CardView>
+
     </LinearLayout>
+
+
+    </ScrollView>
 </RelativeLayout>

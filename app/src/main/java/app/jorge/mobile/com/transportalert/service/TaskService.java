@@ -23,7 +23,7 @@ import retrofit.http.Query;
 
 
 public interface TaskService {
-    @GET("Mode/tube/Status")
+    @GET("Mode/tube,dlr,overground,tflrail/Status")
     Call<List<StatusLine>> login(@Query("app_id") String app_id,
                                  @Query("app_key") String app_key);
 }
