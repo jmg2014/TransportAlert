@@ -257,15 +257,9 @@ public class ScrollingActivity extends AppCompatActivity
                     intent.putExtra(getString(R.string.activity_info_icon), line);
                     intent.putExtra(getString(R.string.activity_info_status), status);
 
-
-                } else {
-                    intent.putExtra(getString(R.string.activity_info_category), "Good");
-                    intent.putExtra(getString(R.string.activity_info_description), "Good");
-                    intent.putExtra(getString(R.string.activity_info_additional), "Good");
-                    intent.putExtra(getString(R.string.activity_info_icon), line);
-                    intent.putExtra(getString(R.string.activity_info_status), status);
+                    startActivity(intent, options.toBundle());
                 }
-                startActivity(intent, options.toBundle());
+
             }
         });
 
