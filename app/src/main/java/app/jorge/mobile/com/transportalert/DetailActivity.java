@@ -57,7 +57,7 @@ public class DetailActivity extends AppCompatActivity {
         ImageView imageView = (ImageView) findViewById(R.id.iconTube);
         TextView textTubeName = (TextView) findViewById(R.id.tubeName);
         TextView textStatusView = (TextView)findViewById(R.id.tubeStatus);
-        ImageView statusView = (ImageView) findViewById(R.id.iconStatusImage);
+        //ImageView statusView = (ImageView) findViewById(R.id.iconStatusImage);
 
         String category=getIntent().getStringExtra(getString(R.string.activity_info_category));
         String description=getIntent().getStringExtra(getString(R.string.activity_info_description));
@@ -69,7 +69,7 @@ public class DetailActivity extends AppCompatActivity {
         textTubeName.setText(name);
         textStatusView.setText(status);
         imageView.setBackgroundResource(getIconLine(name));
-        statusView.setBackgroundResource(getStatusIcon(status));
+        //statusView.setBackgroundResource(getStatusIcon(status));
 
 
         TextView textCategoryView = (TextView) findViewById(R.id.category);
@@ -81,17 +81,6 @@ public class DetailActivity extends AppCompatActivity {
         TextView textAdditionalView = (TextView)findViewById(R.id.additional);
         textAdditionalView.setText(additional);
 
-        if (status.equals(getString(R.string.status_good_service))){
-            textCategoryView.setVisibility(View.GONE);
-            textDescriptionView.setVisibility(View.GONE);
-            textAdditionalView.setVisibility(View.GONE);
-        }
-        else{
-            ImageView starView = (ImageView) findViewById(R.id.iconGoodService);
-            starView.setVisibility(View.GONE);
-        }
-
-
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 
             imageView.setTransitionName(getString(R.string.activity_image_trans));
@@ -101,7 +90,7 @@ public class DetailActivity extends AppCompatActivity {
         }
 
         notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        
+
         createHeadsUpNotification();
 
 
