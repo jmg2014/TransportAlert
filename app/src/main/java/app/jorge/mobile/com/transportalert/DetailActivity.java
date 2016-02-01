@@ -57,10 +57,10 @@ public class DetailActivity extends AppCompatActivity {
         ImageView imageView = (ImageView) findViewById(R.id.iconTube);
         TextView textTubeName = (TextView) findViewById(R.id.tubeName);
         TextView textStatusView = (TextView)findViewById(R.id.tubeStatus);
-        //ImageView statusView = (ImageView) findViewById(R.id.iconStatusImage);
 
-        String category=getIntent().getStringExtra(getString(R.string.activity_info_category));
-        String description=getIntent().getStringExtra(getString(R.string.activity_info_description));
+
+        String category=getCategory(getIntent().getStringExtra(getString(R.string.activity_info_category)));
+        String description=getDescription(getIntent().getStringExtra(getString(R.string.activity_info_description)));
         String additional=getIntent().getStringExtra(getString(R.string.activity_info_additional));
         String name=getIntent().getStringExtra(getString(R.string.activity_info_icon));
         String status=getIntent().getStringExtra(getString(R.string.activity_info_status));
@@ -69,7 +69,7 @@ public class DetailActivity extends AppCompatActivity {
         textTubeName.setText(name);
         textStatusView.setText(status);
         imageView.setBackgroundResource(getIconLine(name));
-        //statusView.setBackgroundResource(getStatusIcon(status));
+
 
 
         TextView textCategoryView = (TextView) findViewById(R.id.category);
@@ -157,6 +157,43 @@ public class DetailActivity extends AppCompatActivity {
     }
 
 
+    private String getCategory(String category){
+
+        if (category.equals("PlannedWork")){
+            return "Planned Work";
+        }
+        else if (category.equals("RealTime")){
+            return "Real Time";
+        }
+        else{
+            return category;
+        }
+    }
+
+    private String getDescription(String description){
+
+        StringBuilder sb=new StringBuilder();
+
+        String[] words=description.split(":");
+        //sb.append(words[0]);
+        //sb.append(":\n\n");
+
+        String [] paragraphs=words[1].split("\\.");
+        int length=paragraphs.length;
+        for (int i=0;i<length;i++){
+            String paragraph=paragraphs[i];
+            sb.append(paragraph.substring(1,paragraph.length()));
+            if (i==length-1){
+                sb.append(".\n");
+            }
+            else {
+                sb.append(".\n\n");
+            }
+        }
+
+        return sb.toString();
+
+    }
 
     private void createHeadsUpNotification() {
 
@@ -165,7 +202,7 @@ public class DetailActivity extends AppCompatActivity {
 
 
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
-                .setSmallIcon(R.drawable.dlr_wbg400x400)
+                .setSmallIcon(R.drawable.notification_256x256)
                 .setPriority(NotificationCompat.PRIORITY_MAX)
                 .setVibrate(new long[]{1, 1, 1})
                 .setCategory(NotificationCompat.CATEGORY_MESSAGE)

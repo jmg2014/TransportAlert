@@ -283,7 +283,8 @@ public class ScrollingActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_alarm) {
+            Toast.makeText(getApplicationContext(), "Alarm is selected", Toast.LENGTH_SHORT).show();
             return true;
         }
         return super.onOptionsItemSelected(item);
