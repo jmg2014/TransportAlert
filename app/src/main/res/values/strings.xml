@@ -53,7 +53,6 @@
     <string name="white">#FFFFFF</string>
 
 
-
     <string name="activity_image_trans">image</string>
     <string name="activity_text_tube_name">tubeName</string>
     <string name="activity_text_tube_status">tubeStatus</string>
@@ -67,6 +66,17 @@
 
     <string name="status_good_service">Good Service</string>
     <string name="status_minor_delays">Minor Delays</string>
+
+    <string name="title_activity_alerts">Alerts</string>
+    <string name="action_home">Home</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- Strings related to Settings -->
+
+
+
+
 
 
 

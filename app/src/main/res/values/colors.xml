@@ -3,10 +3,25 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-
     <color name="white">#FFFFFF</color>
-
+    <color name="grey">#808080</color>
     <color name="colorBackgroundIcons">#0098ff</color>
+    <color name="bakerloo">#AE6118</color>
+    <color name="central">#E41F1F</color>
+    <color name="circle">#F8D42D</color>
 
+    <color name="district">#007229</color>
+    <color name="dlr">#00BBB4</color>
+    <color name="hammersmith">#E899A8</color>
+    <color name="jubilee">#686E72</color>
+    <color name="metropolitan">#893267</color>
+    <color name="northern">#000000</color>
+    <color name="overground">#F86000</color>
+    <color name="picadilly">#0450A1</color>
+    <color name="victoria">#009FE0</color>
+    <color name="waterloo">#70C3CE</color>
+    <color name="tflrail">#233589</color>
+
+    <color name="alert">#e35454</color>
 
 </resources>
