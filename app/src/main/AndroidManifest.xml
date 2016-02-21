@@ -31,6 +31,18 @@
             android:name=".AlertsActivity"
             android:label="@string/title_activity_alerts"
             android:theme="@style/AppTheme.NoActionBar" />
+
+
+        <receiver
+            android:name="app.jorge.mobile.com.transportalert.alarm.MyAlarmReceiver"
+            android:process=":remote" >
+        </receiver>
+
+        <service
+            android:name="app.jorge.mobile.com.transportalert.alarm.ServiceAlarm"
+            android:exported="false" />
     </application>
+
+
 
 </manifest>

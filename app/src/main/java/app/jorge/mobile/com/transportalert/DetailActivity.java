@@ -45,9 +45,6 @@ import app.jorge.mobile.com.transportalert.factory.CardTube;
 public class DetailActivity extends AppCompatActivity {
 
 
-    NotificationManager notificationManager;
-    public static final int CUSTOM_NOTIFICATION_ID = 6;
-    public static final int HEADS_UP_NOTIFICATION_ID = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,9 +86,6 @@ public class DetailActivity extends AppCompatActivity {
 
         }
 
-        notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-
-        createHeadsUpNotification();
 
 
     }
@@ -144,18 +138,6 @@ public class DetailActivity extends AppCompatActivity {
         return -1;
     }
 
-    private int getStatusIcon(String status){
-
-        if (getString(R.string.status_good_service).equals(status)){
-            return R.drawable.thumbs_up_128x128;
-        } else if (getString(R.string.status_minor_delays).equals(status)){
-            return R.drawable.hourglass_128x128;
-        }
-        else{
-            return R.drawable.fire_128x128;
-        }
-    }
-
 
     private String getCategory(String category){
 
@@ -195,41 +177,4 @@ public class DetailActivity extends AppCompatActivity {
 
     }
 
-    private void createHeadsUpNotification() {
-
-
-        RemoteViews remoteViews = new RemoteViews(getPackageName(), R.layout.custom_notification);
-
-
-        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
-                .setSmallIcon(R.drawable.notification_256x256)
-                .setPriority(NotificationCompat.PRIORITY_MAX)
-                .setVibrate(new long[]{1, 1, 1})
-                .setCategory(NotificationCompat.CATEGORY_MESSAGE)
-                .setContent(remoteViews);
-                //.setContentTitle("Simple Heads-Up Notification")
-                //.setContentText("This is a normal notification.");
-
-        notificationManager.notify(HEADS_UP_NOTIFICATION_ID, notificationBuilder.build());
-    }
-
-
-    public void initSchedule() {
-
-        ScheduledExecutorService scheduler =
-                Executors.newSingleThreadScheduledExecutor();
-
-        scheduler.scheduleAtFixedRate
-                (new Runnable() {
-                    public void run() {
-                        // call service
-                    }
-                }, 0, 10, TimeUnit.MINUTES);
-    }
-
-    public void end() {
-        ScheduledExecutorService scheduler =
-                Executors.newSingleThreadScheduledExecutor();
-        scheduler.shutdown();
-    }
 }

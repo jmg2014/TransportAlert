@@ -17,6 +17,8 @@ package app.jorge.mobile.com.transportalert;
 
 
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -44,11 +46,13 @@ import com.squareup.okhttp.ResponseBody;
 import java.util.HashMap;
 import java.util.List;
 
+import app.jorge.mobile.com.transportalert.alarm.MyAlarmReceiver;
 import app.jorge.mobile.com.transportalert.factory.CardFactory;
 import app.jorge.mobile.com.transportalert.factory.CardTube;
 import app.jorge.mobile.com.transportalert.service.LineStatuses;
 import app.jorge.mobile.com.transportalert.service.StatusLine;
 import app.jorge.mobile.com.transportalert.service.TaskService;
+
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.GsonConverterFactory;
@@ -62,6 +66,7 @@ public class ScrollingActivity extends AppCompatActivity
     private FloatingActionButton fab;
     HashMap<String,LineStatuses> tubeStatus=new HashMap<>();
     private SwipeRefreshLayout mSwipeRefreshLayout;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,6 +107,28 @@ public class ScrollingActivity extends AppCompatActivity
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_layout);
         mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
         mSwipeRefreshLayout.setOnRefreshListener(this);
+
+       //Setup alarm
+        scheduleAlarm();
+    }
+
+    // Setup a recurring alarm every half hour
+    public void scheduleAlarm() {
+        // Construct an intent that will execute the AlarmReceiver
+        Intent intent = new Intent(getApplicationContext(), MyAlarmReceiver.class);
+        // Create a PendingIntent to be triggered when the alarm goes off
+        final PendingIntent pIntent = PendingIntent.getBroadcast(this, MyAlarmReceiver.REQUEST_CODE,
+                intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        // Setup periodic alarm every 5 seconds
+        long firstMillis = System.currentTimeMillis(); // alarm is set right away
+        AlarmManager alarm = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
+        // First parameter is the type: ELAPSED_REALTIME, ELAPSED_REALTIME_WAKEUP, RTC_WAKEUP
+        // Interval can be INTERVAL_FIFTEEN_MINUTES, INTERVAL_HALF_HOUR, INTERVAL_HOUR, INTERVAL_DAY
+
+        //alarm.setInexactRepeating(AlarmManager.RTC_WAKEUP, firstMillis,
+          //      AlarmManager.INTERVAL_HALF_HOUR, pIntent);
+
+        alarm.setInexactRepeating(AlarmManager.RTC_WAKEUP, firstMillis,AlarmManager.INTERVAL_HALF_HOUR, pIntent);
     }
 
     private void addAllCards(LinearLayout item) {
@@ -438,4 +465,6 @@ public class ScrollingActivity extends AppCompatActivity
         options.inJustDecodeBounds = false;
         return BitmapFactory.decodeResource(res, resId, options);
     }
+
+
 }
