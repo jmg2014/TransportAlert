@@ -17,6 +17,8 @@ package app.jorge.mobile.com.transportalert;
 
 
 
+
+
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -59,6 +61,8 @@ import retrofit.GsonConverterFactory;
 import retrofit.Response;
 import retrofit.Retrofit;
 
+
+
 public class ScrollingActivity extends AppCompatActivity
         implements Callback<List<StatusLine>>,View.OnClickListener,SwipeRefreshLayout.OnRefreshListener{
 
@@ -67,6 +71,7 @@ public class ScrollingActivity extends AppCompatActivity
     HashMap<String,LineStatuses> tubeStatus=new HashMap<>();
     private SwipeRefreshLayout mSwipeRefreshLayout;
 
+    private static boolean firstTime = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,8 +113,21 @@ public class ScrollingActivity extends AppCompatActivity
         mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
         mSwipeRefreshLayout.setOnRefreshListener(this);
 
-       //Setup alarm
-        scheduleAlarm();
+
+
+        if(firstTime){ // if running is false
+            // call your intent funtions
+            Toast.makeText(getApplicationContext(), "FIRST TIME",
+                    Toast.LENGTH_LONG).show();
+            scheduleAlarm();
+            firstTime=false;
+        }
+        else{
+            Toast.makeText(getApplicationContext(), "It is RUNNING!!!!!!!",
+                    Toast.LENGTH_LONG).show();
+        }
+
+
     }
 
     // Setup a recurring alarm every half hour

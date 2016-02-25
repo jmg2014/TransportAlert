@@ -19,6 +19,8 @@ import android.app.IntentService;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.widget.RemoteViews;
@@ -58,14 +60,17 @@ public class ServiceAlarm extends IntentService implements Callback<List<StatusL
     public static final int NOTIFICATION_TFLRAIL = 13;
     public static final int NOTIFICATION_DLR = 14;
 
+
+
     public ServiceAlarm() {
-        super("ServiceAlarm");
+        super("app.jorge.mobile.com.transportalert.alarm.ServiceAlarm");
 
     }
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        // Do the task here
+
+         // Do the task here
         Log.i(TAG, "Service running");
         notificationManager=(NotificationManager)getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
         Retrofit retrofit = new Retrofit.Builder()
@@ -102,62 +107,136 @@ public class ServiceAlarm extends IntentService implements Callback<List<StatusL
                 String message=lineStatuses.getStatusSeverityDescription();
                 if (message!=null) {
 
+                    String previous_status=getLastStatus(nameKey);
 
-                    if (!message.equals(getString(R.string.status_good_service))){
-                        StringBuilder sb=new StringBuilder();
-                        sb.append(message);
-                        sb.append("\n");
+                    if (!previous_status.equals(message)){
 
+                        //Update status
+                        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString(nameKey, message);
+                        editor.commit();
 
-                        if (nameKey.equals(getString(R.string.bakerloo_label))) {
-                            createHeadsUpNotification(getString(R.string.bakerloo_label),sb,NOTIFICATION_BAKERLOO);
+                        Log.i(TAG, "Update status: " + nameKey + " , " + message);
+
+                        if (!message.equals(getString(R.string.status_good_service))){
+                            noGoodService(nameKey, message);
                         }
-                        else if (nameKey.equals(getString(R.string.central_label))) {
-                            createHeadsUpNotification(getString(R.string.central_label),sb,NOTIFICATION_CENTRAL);
-                        }
-                        else if (nameKey.equals(getString(R.string.circle_label))) {
-                            createHeadsUpNotification(getString(R.string.circle_label),sb,NOTIFICATION_CIRCLE);
-                        }
-                        else if (nameKey.equals(getString(R.string.district_label))) {
-                            createHeadsUpNotification(getString(R.string.district_label),sb,NOTIFICATION_DISTRICT);
-                        }
-                        else if (nameKey.equals(getString(R.string.hammersmith_label))) {
-                            createHeadsUpNotification(getString(R.string.hammersmith_label),sb,NOTIFICATION_HAMMERSMITH);
-                        }
-                        else if (nameKey.equals(getString(R.string.jubilee_label))) {
-                            createHeadsUpNotification(getString(R.string.jubilee_label),sb,NOTIFICATION_JUBILEE);
-                        }
-                        else if (nameKey.equals(getString(R.string.metropolitan_label))) {
-                            createHeadsUpNotification(getString(R.string.metropolitan_label),sb,NOTIFICATION_METROPOLITAN);
-                        }
-                        else if (nameKey.equals(getString(R.string.northern_label))) {
-                            createHeadsUpNotification(getString(R.string.northern_label),sb,NOTIFICATION_NORTHERN);
-                        }
-                        else if (nameKey.equals(getString(R.string.piccadilly_label))) {
-                            createHeadsUpNotification(getString(R.string.piccadilly_label),sb,NOTIFICATION_PICCADILLY);
-                        }
-                        else if (nameKey.equals(getString(R.string.victoria_label))) {
-                            createHeadsUpNotification(getString(R.string.victoria_label),sb,NOTIFICATION_VICTORIA);
-                        }
-                        else if (nameKey.equals(getString(R.string.waterloo_label))) {
-                            createHeadsUpNotification(getString(R.string.waterloo_label),sb,NOTIFICATION_WATERLOO);
-                        }
-                        else if (nameKey.equals(getString(R.string.london_overground_label))) {
-                            createHeadsUpNotification(getString(R.string.london_overground_label),sb,NOTIFICATION_OVERGROUND);
-                        }
-                        else if (nameKey.equals(getString(R.string.tfl_rail_label))) {
-                            createHeadsUpNotification(getString(R.string.tfl_rail_label),sb,NOTIFICATION_TFLRAIL);
-                        }
-                        else{
-                            createHeadsUpNotification(getString(R.string.dlr_label),sb,NOTIFICATION_DLR);
-                        }
+
                     }
+                    else{
+                        Log.i(TAG,"Same status: "+nameKey + " , "+message);
+                    }
+
 
 
                 }
             }
 
 
+        }
+    }
+
+    private String getLastStatus(String lineKey){
+
+        String last_status="";
+
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
+        if (lineKey.equals(getString(R.string.bakerloo_label))){
+            last_status = sharedPreferences.getString(getString(R.string.bakerloo_status), getString(R.string.status_good_service));
+        }
+        else if (lineKey.equals(getString(R.string.central_label))){
+            last_status = sharedPreferences.getString(getString(R.string.central_status), getString(R.string.status_good_service));
+        }
+        else if (lineKey.equals(getString(R.string.circle_label))){
+            last_status = sharedPreferences.getString(getString(R.string.circle_status), getString(R.string.status_good_service));
+        }
+        else if (lineKey.equals(getString(R.string.district_label))){
+            last_status = sharedPreferences.getString(getString(R.string.district_status), getString(R.string.status_good_service));
+        }
+        else if (lineKey.equals(getString(R.string.hammersmith_label))){
+            last_status = sharedPreferences.getString(getString(R.string.hammersmith_status), getString(R.string.status_good_service));
+        }
+        else if (lineKey.equals(getString(R.string.jubilee_label))){
+            last_status = sharedPreferences.getString(getString(R.string.jubilee_status), getString(R.string.status_good_service));
+        }
+        else if (lineKey.equals(getString(R.string.metropolitan_label))){
+            last_status = sharedPreferences.getString(getString(R.string.metropolitan_status), getString(R.string.status_good_service));
+        }
+        else if (lineKey.equals(getString(R.string.northern_label))){
+            last_status = sharedPreferences.getString(getString(R.string.northern_status), getString(R.string.status_good_service));
+        }
+        else if (lineKey.equals(getString(R.string.piccadilly_label))){
+            last_status = sharedPreferences.getString(getString(R.string.piccadilly_status), getString(R.string.status_good_service));
+        }
+        else if (lineKey.equals(getString(R.string.victoria_label))){
+            last_status = sharedPreferences.getString(getString(R.string.victoria_status), getString(R.string.status_good_service));
+        }
+        else if (lineKey.equals(getString(R.string.waterloo_label))){
+            last_status = sharedPreferences.getString(getString(R.string.waterloo_status), getString(R.string.status_good_service));
+        }
+        else if (lineKey.equals(getString(R.string.london_overground_label))){
+            last_status = sharedPreferences.getString(getString(R.string.london_overground_status), getString(R.string.status_good_service));
+        }
+        else if (lineKey.equals(getString(R.string.tfl_rail_label))){
+            last_status = sharedPreferences.getString(getString(R.string.tfl_rail_status), getString(R.string.status_good_service));
+        }
+        else if (lineKey.equals(getString(R.string.dlr_label))){
+            last_status = sharedPreferences.getString(getString(R.string.dlr_status), getString(R.string.status_good_service));
+        }
+
+
+        return last_status;
+
+    }
+    private void noGoodService(String nameKey, String message) {
+        StringBuilder sb=new StringBuilder();
+        sb.append(message);
+        sb.append("\n");
+
+
+        if (nameKey.equals(getString(R.string.bakerloo_label))) {
+            createHeadsUpNotification(getString(R.string.bakerloo_label),sb,NOTIFICATION_BAKERLOO);
+        }
+        else if (nameKey.equals(getString(R.string.central_label))) {
+            createHeadsUpNotification(getString(R.string.central_label),sb,NOTIFICATION_CENTRAL);
+        }
+        else if (nameKey.equals(getString(R.string.circle_label))) {
+            createHeadsUpNotification(getString(R.string.circle_label),sb,NOTIFICATION_CIRCLE);
+        }
+        else if (nameKey.equals(getString(R.string.district_label))) {
+            createHeadsUpNotification(getString(R.string.district_label),sb,NOTIFICATION_DISTRICT);
+        }
+        else if (nameKey.equals(getString(R.string.hammersmith_label))) {
+            createHeadsUpNotification(getString(R.string.hammersmith_label),sb,NOTIFICATION_HAMMERSMITH);
+        }
+        else if (nameKey.equals(getString(R.string.jubilee_label))) {
+            createHeadsUpNotification(getString(R.string.jubilee_label),sb,NOTIFICATION_JUBILEE);
+        }
+        else if (nameKey.equals(getString(R.string.metropolitan_label))) {
+            createHeadsUpNotification(getString(R.string.metropolitan_label),sb,NOTIFICATION_METROPOLITAN);
+        }
+        else if (nameKey.equals(getString(R.string.northern_label))) {
+            createHeadsUpNotification(getString(R.string.northern_label),sb,NOTIFICATION_NORTHERN);
+        }
+        else if (nameKey.equals(getString(R.string.piccadilly_label))) {
+            createHeadsUpNotification(getString(R.string.piccadilly_label),sb,NOTIFICATION_PICCADILLY);
+        }
+        else if (nameKey.equals(getString(R.string.victoria_label))) {
+            createHeadsUpNotification(getString(R.string.victoria_label),sb,NOTIFICATION_VICTORIA);
+        }
+        else if (nameKey.equals(getString(R.string.waterloo_label))) {
+            createHeadsUpNotification(getString(R.string.waterloo_label),sb,NOTIFICATION_WATERLOO);
+        }
+        else if (nameKey.equals(getString(R.string.london_overground_label))) {
+            createHeadsUpNotification(getString(R.string.london_overground_label),sb,NOTIFICATION_OVERGROUND);
+        }
+        else if (nameKey.equals(getString(R.string.tfl_rail_label))) {
+            createHeadsUpNotification(getString(R.string.tfl_rail_label),sb,NOTIFICATION_TFLRAIL);
+        }
+        else{
+            createHeadsUpNotification(getString(R.string.dlr_label),sb,NOTIFICATION_DLR);
         }
     }
 
@@ -183,6 +262,11 @@ public class ServiceAlarm extends IntentService implements Callback<List<StatusL
     }
     @Override
     public void onFailure(Throwable t) {
+
+    }
+
+    @Override
+    public void onDestroy(){
 
     }
 }

@@ -1,9 +1,12 @@
 package app.jorge.mobile.com.transportalert;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
 
 import android.support.v4.app.Fragment;
@@ -11,13 +14,16 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.CompoundButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class AlertsActivity extends AppCompatActivity {
 
@@ -122,6 +128,24 @@ public class AlertsActivity extends AppCompatActivity {
                 View rootView = inflater.inflate(R.layout.fragment_alerts_service, container, false);
                 TextView textView = (TextView) rootView.findViewById(R.id.section_label);
                 textView.setText("BAD SERVICE ALERT");
+
+
+                addSwitchListener(rootView, R.id.switch_compatBakeloo, R.string.bakerloo_selected);
+                addSwitchListener(rootView, R.id.switch_compatCentral, R.string.central_selected);
+                addSwitchListener(rootView, R.id.switch_compatCircle, R.string.circle_selected);
+                addSwitchListener(rootView, R.id.switch_compatDistrict, R.string.district_selected);
+                addSwitchListener(rootView, R.id.switch_compatHammersmith, R.string.hammersmith_selected);
+                addSwitchListener(rootView, R.id.switch_compatJubilee, R.string.jubilee_selected);
+                addSwitchListener(rootView, R.id.switch_compatMetropolitan, R.string.metropolitan_selected);
+                addSwitchListener(rootView, R.id.switch_compatNothern, R.string.northern_selected);
+                addSwitchListener(rootView, R.id.switch_compatPicadilly, R.string.piccadilly_selected);
+                addSwitchListener(rootView, R.id.switch_compatVictoria, R.string.victoria_selected);
+                addSwitchListener(rootView, R.id.switch_compatWaterloo, R.string.waterloo_selected);
+                addSwitchListener(rootView, R.id.switch_compatOverground, R.string.london_overground_selected);
+                addSwitchListener(rootView, R.id.switch_compatDlr, R.string.dlr_selected);
+                addSwitchListener(rootView, R.id.switch_compatTflRail, R.string.tfl_rail_selected);
+
+
                 return rootView;
             }
             else{
@@ -136,6 +160,24 @@ public class AlertsActivity extends AppCompatActivity {
             textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
             return rootView;
             */
+        }
+
+        private void addSwitchListener(View rootView,int switchId,final int statusLineId) {
+
+            SwitchCompat switchCompact = (SwitchCompat) rootView.findViewById(switchId);
+            switchCompact.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    // do something, the isChecked will be
+                    // true if the switch is in the On position
+                    Log.i(PlaceholderFragment.class.getSimpleName(), String.valueOf(isChecked));
+                    SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putBoolean(getString(statusLineId), isChecked);
+                    editor.commit();
+                }
+            });
+            
+            
         }
     }
 

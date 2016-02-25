@@ -73,7 +73,37 @@
     <string name="title_activity_settings">Settings</string>
 
     <!-- Strings related to Settings -->
+    <!-- ALARM_SWITCH  -->
+    <string name="bakerloo_selected">Bakerloo</string>
+    <string name="central_selected">Central</string>
+    <string name="circle_selected">Circle</string>
+    <string name="district_selected">District</string>
+    <string name="hammersmith_selected">Hammersmith &amp; City</string>
+    <string name="jubilee_selected">Jubilee</string>
+    <string name="metropolitan_selected">Metropolitan</string>
+    <string name="northern_selected">Northern</string>
+    <string name="piccadilly_selected">Piccadilly</string>
+    <string name="victoria_selected">Victoria</string>
+    <string name="waterloo_selected">Waterloo &amp; City</string>
+    <string name="tfl_rail_selected">TfL Rail</string>
+    <string name="london_overground_selected">London Overground</string>
+    <string name="dlr_selected">DLR</string>
 
+    <!-- LAST_STATUS  -->
+    <string name="bakerloo_status">Bakerloo_status</string>
+    <string name="central_status">Central_status</string>
+    <string name="circle_status">Circle_status</string>
+    <string name="district_status">District_status</string>
+    <string name="hammersmith_status">Hammersmith &amp; City_status</string>
+    <string name="jubilee_status">Jubilee_status</string>
+    <string name="metropolitan_status">Metropolitan_status</string>
+    <string name="northern_status">Northern_status</string>
+    <string name="piccadilly_status">Piccadilly_status</string>
+    <string name="victoria_status">Victoria_status</string>
+    <string name="waterloo_status">Waterloo &amp; City_status</string>
+    <string name="tfl_rail_status">TfL Rail_status</string>
+    <string name="london_overground_status">London Overground_status</string>
+    <string name="dlr_status">DLR_status</string>
 
 
 
