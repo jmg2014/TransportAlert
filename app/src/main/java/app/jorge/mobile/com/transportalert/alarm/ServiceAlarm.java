@@ -111,13 +111,9 @@ public class ServiceAlarm extends IntentService implements Callback<List<StatusL
 
                     if (!previous_status.equals(message)){
 
-                        //Update status
-                        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putString(nameKey, message);
-                        editor.commit();
+                        saveCurrentStaus(nameKey,message);
 
-                        Log.i(TAG, "Update status: " + nameKey + " , " + message);
+                        Log.i(TAG, "Update status: " + nameKey + " , previous:"+previous_status + " current: "+ message);
 
                         if (!message.equals(getString(R.string.status_good_service))){
                             noGoodService(nameKey, message);
@@ -125,7 +121,7 @@ public class ServiceAlarm extends IntentService implements Callback<List<StatusL
 
                     }
                     else{
-                        Log.i(TAG,"Same status: "+nameKey + " , "+message);
+                        Log.i(TAG, "Same status: " + nameKey + " , previous:"+previous_status + " current: "+ message);
                     }
 
 
@@ -136,6 +132,62 @@ public class ServiceAlarm extends IntentService implements Callback<List<StatusL
 
         }
     }
+
+    private void saveCurrentStaus(String tubeLine, String status) {
+
+        //Update status
+         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+         SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        String nameKey="";
+        if (tubeLine.equals(getString(R.string.bakerloo_label))){
+            nameKey=getString(R.string.bakerloo_status);
+        }
+        else if (tubeLine.equals(getString(R.string.central_label))){
+            nameKey=getString(R.string.central_status);
+        }
+        else if (tubeLine.equals(getString(R.string.circle_label))){
+            nameKey=getString(R.string.circle_status);
+        }
+        else if (tubeLine.equals(getString(R.string.district_label))){
+            nameKey=getString(R.string.district_status);
+        }
+        else if (tubeLine.equals(getString(R.string.hammersmith_label))){
+            nameKey=getString(R.string.hammersmith_status);
+        }
+        else if (tubeLine.equals(getString(R.string.jubilee_label))){
+            nameKey=getString(R.string.jubilee_status);
+        }
+        else if (tubeLine.equals(getString(R.string.metropolitan_label))){
+            nameKey=getString(R.string.metropolitan_status);
+        }
+        else if (tubeLine.equals(getString(R.string.northern_label))){
+            nameKey=getString(R.string.northern_status);
+        }
+        else if (tubeLine.equals(getString(R.string.piccadilly_label))){
+            nameKey=getString(R.string.piccadilly_status);
+        }
+        else if (tubeLine.equals(getString(R.string.victoria_label))){
+            nameKey=getString(R.string.victoria_status);
+        }
+        else if (tubeLine.equals(getString(R.string.waterloo_label))){
+            nameKey=getString(R.string.waterloo_status);
+        }
+        else if (tubeLine.equals(getString(R.string.london_overground_label))){
+            nameKey=getString(R.string.london_overground_status);
+        }
+        else if (tubeLine.equals(getString(R.string.tfl_rail_label))){
+            nameKey=getString(R.string.tfl_rail_status);
+        }
+        else if (tubeLine.equals(getString(R.string.dlr_label))){
+            nameKey=getString(R.string.dlr_status);
+        }
+
+
+         editor.putString(nameKey, status);
+         editor.commit();
+    }
+
 
     private String getLastStatus(String lineKey){
 
@@ -195,6 +247,9 @@ public class ServiceAlarm extends IntentService implements Callback<List<StatusL
         sb.append(message);
         sb.append("\n");
 
+        //TODO check press switchcompat if
+        //SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+      //  boolean isChecked = sharedPreferences.getBoolean(nameKey, false);
 
         if (nameKey.equals(getString(R.string.bakerloo_label))) {
             createHeadsUpNotification(getString(R.string.bakerloo_label),sb,NOTIFICATION_BAKERLOO);
