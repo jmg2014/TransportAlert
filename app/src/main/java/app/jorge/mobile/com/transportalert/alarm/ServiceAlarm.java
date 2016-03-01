@@ -242,56 +242,116 @@ public class ServiceAlarm extends IntentService implements Callback<List<StatusL
         return last_status;
 
     }
+
+
+    private boolean getSelected(String lineKey){
+
+        boolean isSelected=false;
+
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
+        if (lineKey.equals(getString(R.string.bakerloo_label))){
+            isSelected = sharedPreferences.getBoolean(getString(R.string.bakerloo_selected), false);
+        }
+        else if (lineKey.equals(getString(R.string.central_label))){
+            isSelected = sharedPreferences.getBoolean(getString(R.string.central_selected), false);
+        }
+        else if (lineKey.equals(getString(R.string.circle_label))){
+            isSelected = sharedPreferences.getBoolean(getString(R.string.circle_selected), false);
+        }
+        else if (lineKey.equals(getString(R.string.district_label))){
+            isSelected = sharedPreferences.getBoolean(getString(R.string.district_selected), false);
+        }
+        else if (lineKey.equals(getString(R.string.hammersmith_label))){
+            isSelected = sharedPreferences.getBoolean(getString(R.string.hammersmith_selected), false);
+        }
+        else if (lineKey.equals(getString(R.string.jubilee_label))){
+            isSelected = sharedPreferences.getBoolean(getString(R.string.jubilee_selected), false);
+        }
+        else if (lineKey.equals(getString(R.string.metropolitan_label))){
+            isSelected = sharedPreferences.getBoolean(getString(R.string.metropolitan_selected), false);
+        }
+        else if (lineKey.equals(getString(R.string.northern_label))){
+            isSelected = sharedPreferences.getBoolean(getString(R.string.northern_selected), false);
+        }
+        else if (lineKey.equals(getString(R.string.piccadilly_label))){
+            isSelected = sharedPreferences.getBoolean(getString(R.string.piccadilly_selected), false);
+        }
+        else if (lineKey.equals(getString(R.string.victoria_label))){
+            isSelected = sharedPreferences.getBoolean(getString(R.string.victoria_selected), false);
+        }
+        else if (lineKey.equals(getString(R.string.waterloo_label))){
+            isSelected = sharedPreferences.getBoolean(getString(R.string.waterloo_selected), false);
+        }
+        else if (lineKey.equals(getString(R.string.london_overground_label))){
+            isSelected = sharedPreferences.getBoolean(getString(R.string.london_overground_selected), false);
+        }
+        else if (lineKey.equals(getString(R.string.tfl_rail_label))){
+            isSelected = sharedPreferences.getBoolean(getString(R.string.tfl_rail_selected), false);
+        }
+        else if (lineKey.equals(getString(R.string.dlr_label))){
+            isSelected = sharedPreferences.getBoolean(getString(R.string.dlr_selected), false);
+        }
+
+        return isSelected;
+
+    }
     private void noGoodService(String nameKey, String message) {
         StringBuilder sb=new StringBuilder();
         sb.append(message);
         sb.append("\n");
 
-        //TODO check press switchcompat if
-        //SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-      //  boolean isChecked = sharedPreferences.getBoolean(nameKey, false);
 
-        if (nameKey.equals(getString(R.string.bakerloo_label))) {
-            createHeadsUpNotification(getString(R.string.bakerloo_label),sb,NOTIFICATION_BAKERLOO);
-        }
-        else if (nameKey.equals(getString(R.string.central_label))) {
-            createHeadsUpNotification(getString(R.string.central_label),sb,NOTIFICATION_CENTRAL);
-        }
-        else if (nameKey.equals(getString(R.string.circle_label))) {
-            createHeadsUpNotification(getString(R.string.circle_label),sb,NOTIFICATION_CIRCLE);
-        }
-        else if (nameKey.equals(getString(R.string.district_label))) {
-            createHeadsUpNotification(getString(R.string.district_label),sb,NOTIFICATION_DISTRICT);
-        }
-        else if (nameKey.equals(getString(R.string.hammersmith_label))) {
-            createHeadsUpNotification(getString(R.string.hammersmith_label),sb,NOTIFICATION_HAMMERSMITH);
-        }
-        else if (nameKey.equals(getString(R.string.jubilee_label))) {
-            createHeadsUpNotification(getString(R.string.jubilee_label),sb,NOTIFICATION_JUBILEE);
-        }
-        else if (nameKey.equals(getString(R.string.metropolitan_label))) {
-            createHeadsUpNotification(getString(R.string.metropolitan_label),sb,NOTIFICATION_METROPOLITAN);
-        }
-        else if (nameKey.equals(getString(R.string.northern_label))) {
-            createHeadsUpNotification(getString(R.string.northern_label),sb,NOTIFICATION_NORTHERN);
-        }
-        else if (nameKey.equals(getString(R.string.piccadilly_label))) {
-            createHeadsUpNotification(getString(R.string.piccadilly_label),sb,NOTIFICATION_PICCADILLY);
-        }
-        else if (nameKey.equals(getString(R.string.victoria_label))) {
-            createHeadsUpNotification(getString(R.string.victoria_label),sb,NOTIFICATION_VICTORIA);
-        }
-        else if (nameKey.equals(getString(R.string.waterloo_label))) {
-            createHeadsUpNotification(getString(R.string.waterloo_label),sb,NOTIFICATION_WATERLOO);
-        }
-        else if (nameKey.equals(getString(R.string.london_overground_label))) {
-            createHeadsUpNotification(getString(R.string.london_overground_label),sb,NOTIFICATION_OVERGROUND);
-        }
-        else if (nameKey.equals(getString(R.string.tfl_rail_label))) {
-            createHeadsUpNotification(getString(R.string.tfl_rail_label),sb,NOTIFICATION_TFLRAIL);
-        }
+        boolean isChecked = getSelected(nameKey);
+
+        if(isChecked){
+
+            if (nameKey.equals(getString(R.string.bakerloo_label))) {
+                createHeadsUpNotification(getString(R.string.bakerloo_label),sb,NOTIFICATION_BAKERLOO);
+            }
+            else if (nameKey.equals(getString(R.string.central_label))) {
+                createHeadsUpNotification(getString(R.string.central_label),sb,NOTIFICATION_CENTRAL);
+            }
+            else if (nameKey.equals(getString(R.string.circle_label))) {
+                createHeadsUpNotification(getString(R.string.circle_label),sb,NOTIFICATION_CIRCLE);
+            }
+            else if (nameKey.equals(getString(R.string.district_label))) {
+                createHeadsUpNotification(getString(R.string.district_label),sb,NOTIFICATION_DISTRICT);
+            }
+            else if (nameKey.equals(getString(R.string.hammersmith_label))) {
+                createHeadsUpNotification(getString(R.string.hammersmith_label),sb,NOTIFICATION_HAMMERSMITH);
+            }
+            else if (nameKey.equals(getString(R.string.jubilee_label))) {
+                createHeadsUpNotification(getString(R.string.jubilee_label),sb,NOTIFICATION_JUBILEE);
+            }
+            else if (nameKey.equals(getString(R.string.metropolitan_label))) {
+                createHeadsUpNotification(getString(R.string.metropolitan_label),sb,NOTIFICATION_METROPOLITAN);
+            }
+            else if (nameKey.equals(getString(R.string.northern_label))) {
+                createHeadsUpNotification(getString(R.string.northern_label),sb,NOTIFICATION_NORTHERN);
+            }
+            else if (nameKey.equals(getString(R.string.piccadilly_label))) {
+                createHeadsUpNotification(getString(R.string.piccadilly_label),sb,NOTIFICATION_PICCADILLY);
+            }
+            else if (nameKey.equals(getString(R.string.victoria_label))) {
+                createHeadsUpNotification(getString(R.string.victoria_label),sb,NOTIFICATION_VICTORIA);
+            }
+            else if (nameKey.equals(getString(R.string.waterloo_label))) {
+                createHeadsUpNotification(getString(R.string.waterloo_label),sb,NOTIFICATION_WATERLOO);
+            }
+            else if (nameKey.equals(getString(R.string.london_overground_label))) {
+                createHeadsUpNotification(getString(R.string.london_overground_label),sb,NOTIFICATION_OVERGROUND);
+            }
+            else if (nameKey.equals(getString(R.string.tfl_rail_label))) {
+                createHeadsUpNotification(getString(R.string.tfl_rail_label),sb,NOTIFICATION_TFLRAIL);
+            }
+            else{
+                createHeadsUpNotification(getString(R.string.dlr_label),sb,NOTIFICATION_DLR);
+            }
+            Log.i(TAG,"Checked switchCompact: "+nameKey);
+        }//isChecked
         else{
-            createHeadsUpNotification(getString(R.string.dlr_label),sb,NOTIFICATION_DLR);
+            Log.i(TAG,"No Checked switchCompact: "+nameKey);
         }
     }
 

@@ -145,6 +145,22 @@ public class AlertsActivity extends AppCompatActivity {
                 addSwitchListener(rootView, R.id.switch_compatDlr, R.string.dlr_selected);
                 addSwitchListener(rootView, R.id.switch_compatTflRail, R.string.tfl_rail_selected);
 
+            
+                setSelected(rootView, R.id.switch_compatBakeloo,R.string.bakerloo_selected);
+                setSelected(rootView, R.id.switch_compatCentral,R.string.central_selected);
+                setSelected(rootView, R.id.switch_compatCircle,R.string.circle_selected);
+                setSelected(rootView, R.id.switch_compatDistrict,R.string.district_selected);
+                setSelected(rootView, R.id.switch_compatHammersmith,R.string.hammersmith_selected);
+                setSelected(rootView, R.id.switch_compatJubilee,R.string.jubilee_selected);
+                setSelected(rootView, R.id.switch_compatMetropolitan,R.string.metropolitan_selected);
+                setSelected(rootView, R.id.switch_compatNothern,R.string.northern_selected);
+                setSelected(rootView, R.id.switch_compatPicadilly,R.string.piccadilly_selected);
+                setSelected(rootView, R.id.switch_compatVictoria,R.string.victoria_selected);
+                setSelected(rootView, R.id.switch_compatWaterloo,R.string.waterloo_selected);
+                setSelected(rootView, R.id.switch_compatOverground,R.string.london_overground_selected);
+                setSelected(rootView, R.id.switch_compatDlr,R.string.dlr_selected);
+                setSelected(rootView, R.id.switch_compatTflRail,R.string.tfl_rail_selected);
+
 
                 return rootView;
             }
@@ -162,6 +178,15 @@ public class AlertsActivity extends AppCompatActivity {
             */
         }
 
+        private void setSelected(View rootView,int switchId,int lineIdSelected){
+
+            SwitchCompat switchCompact = (SwitchCompat) rootView.findViewById(switchId);
+            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
+           boolean isSelected=sharedPreferences.getBoolean(getString(lineIdSelected), false);
+            switchCompact.setChecked(isSelected);
+            Log.i(PlaceholderFragment.class.getSimpleName(), "str: "+String.valueOf(isSelected));
+
+        }
         private void addSwitchListener(View rootView,int switchId,final int statusLineId) {
 
             SwitchCompat switchCompact = (SwitchCompat) rootView.findViewById(switchId);
