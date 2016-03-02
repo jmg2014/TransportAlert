@@ -111,7 +111,7 @@ public class ServiceAlarm extends IntentService implements Callback<List<StatusL
 
                     String previous_status=getLastStatus(nameKey);
 
-                    if (previous_status.equals(message)){
+                    if (!previous_status.equals(message)){
 
                         saveCurrentStaus(nameKey,message);
 
