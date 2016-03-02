@@ -16,15 +16,16 @@
         android:layout_weight="1"
         android:src="@drawable/notification_256x256"/>
 
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_weight="3"
-        android:layout_width="match_parent"
+        android:layout_width="200dp"
         android:layout_height="match_parent">
 
         <TextView
             android:id="@+id/titleNotification"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
             android:text="Central Line"
@@ -34,12 +35,24 @@
 
         <TextView
             android:id="@+id/messageNotification"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Good service...just kidding!"
+            android:text="Minor Delays"
             android:paddingTop="2dp"
             android:paddingLeft="4dp"
             style="@android:style/TextAppearance.Material.Notification.Line2"  />
+
     </LinearLayout>
+    <TextView
+        style="@android:style/TextAppearance.Material.Notification.Title"
+        android:id="@+id/timeView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="right"
+        android:text="08:55"
+        android:paddingTop="8dp"
+        android:paddingLeft="4dp"
+        android:layout_weight="455.06"
+        android:layout_gravity="right" />
 
 </LinearLayout>

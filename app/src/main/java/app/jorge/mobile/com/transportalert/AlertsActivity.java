@@ -58,16 +58,6 @@ public class AlertsActivity extends AppCompatActivity {
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
 
-        /*
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-*/
     }
 
 
@@ -145,7 +135,7 @@ public class AlertsActivity extends AppCompatActivity {
                 addSwitchListener(rootView, R.id.switch_compatDlr, R.string.dlr_selected);
                 addSwitchListener(rootView, R.id.switch_compatTflRail, R.string.tfl_rail_selected);
 
-            
+
                 setSelected(rootView, R.id.switch_compatBakeloo,R.string.bakerloo_selected);
                 setSelected(rootView, R.id.switch_compatCentral,R.string.central_selected);
                 setSelected(rootView, R.id.switch_compatCircle,R.string.circle_selected);
@@ -170,12 +160,7 @@ public class AlertsActivity extends AppCompatActivity {
                 textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
                 return rootView;
             }
-                /*
-            View rootView = inflater.inflate(R.layout.fragment_alerts, container, false);
-            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
-            return rootView;
-            */
+
         }
 
         private void setSelected(View rootView,int switchId,int lineIdSelected){

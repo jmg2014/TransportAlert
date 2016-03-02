@@ -26,6 +26,8 @@ import android.util.Log;
 import android.widget.RemoteViews;
 
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import app.jorge.mobile.com.transportalert.R;
@@ -109,7 +111,7 @@ public class ServiceAlarm extends IntentService implements Callback<List<StatusL
 
                     String previous_status=getLastStatus(nameKey);
 
-                    if (!previous_status.equals(message)){
+                    if (previous_status.equals(message)){
 
                         saveCurrentStaus(nameKey,message);
 
@@ -356,12 +358,13 @@ public class ServiceAlarm extends IntentService implements Callback<List<StatusL
     }
 
     private void createHeadsUpNotification(String label,StringBuilder text,int notificationID) {
-
+        String currentTimeString = new SimpleDateFormat("HH:mm").format(new Date());
 
         RemoteViews remoteViews = new RemoteViews(getPackageName(), R.layout.custom_notification);
 
         remoteViews.setTextViewText(R.id.titleNotification,label);
         remoteViews.setTextViewText(R.id.messageNotification,text.toString());
+        remoteViews.setTextViewText(R.id.timeView, currentTimeString);
 
 
 
