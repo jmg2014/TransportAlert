@@ -9,18 +9,20 @@
 
     <ImageView
         android:id="@+id/image"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="54dp"
+        android:layout_height="54dp"
         android:gravity="start"
-        android:padding="5dp"
+
         android:layout_weight="1"
+        android:paddingTop="12dp"
+        android:paddingLeft="0dp"
         android:src="@drawable/notification_256x256"/>
 
 
     <LinearLayout
         android:orientation="vertical"
-        android:layout_weight="3"
-        android:layout_width="200dp"
+        android:layout_weight="4"
+        android:layout_width="240dp"
         android:layout_height="match_parent">
 
         <TextView
@@ -31,7 +33,7 @@
             android:text="Central Line"
             style="@android:style/TextAppearance.Material.Notification.Title"
             android:paddingTop="8dp"
-            android:paddingLeft="4dp" />
+            android:paddingLeft="2dp" />
 
         <TextView
             android:id="@+id/messageNotification"
@@ -39,18 +41,18 @@
             android:layout_height="wrap_content"
             android:text="Minor Delays"
             android:paddingTop="2dp"
-            android:paddingLeft="4dp"
+            android:paddingLeft="2dp"
             style="@android:style/TextAppearance.Material.Notification.Line2"  />
 
     </LinearLayout>
     <TextView
-        style="@android:style/TextAppearance.Material.Notification.Title"
+        style="@android:style/TextAppearance.Material.Notification.Time"
         android:id="@+id/timeView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="right"
         android:text="08:55"
-        android:paddingTop="8dp"
+        android:paddingTop="12dp"
         android:paddingLeft="4dp"
         android:layout_weight="455.06"
         android:layout_gravity="right" />
