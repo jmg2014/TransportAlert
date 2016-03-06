@@ -95,8 +95,6 @@ public class ServiceAlarm extends IntentService implements Callback<List<StatusL
     public void onResponse(Response<List<StatusLine>> response, Retrofit retrofit) {
         if (response.isSuccess()) {
 
-
-
             int size = response.body().size();
             for (int i = 0; i < size; i++) {
 
@@ -120,18 +118,16 @@ public class ServiceAlarm extends IntentService implements Callback<List<StatusL
                         if (!message.equals(getString(R.string.status_good_service))){
                             noGoodService(nameKey, message);
                         }
+                        else{
+                            goodService(nameKey, message);
+                        }
 
                     }
                     else{
                         Log.i(TAG, "Same status: " + nameKey + " , previous:"+previous_status + " current: "+ message);
                     }
-
-
-
                 }
             }
-
-
         }
     }
 
@@ -298,6 +294,65 @@ public class ServiceAlarm extends IntentService implements Callback<List<StatusL
         return isSelected;
 
     }
+
+    private void goodService(String nameKey, String message) {
+
+        StringBuilder sb=new StringBuilder();
+        sb.append(message);
+        sb.append("\n");
+
+
+        boolean isChecked = getSelected(nameKey);
+
+        if(isChecked){
+
+            if (nameKey.equals(getString(R.string.bakerloo_label))) {
+                createHeadsUpNotificationGoodService(getString(R.string.bakerloo_label), sb, NOTIFICATION_BAKERLOO,R.drawable.star_wbg);
+            }
+            else if (nameKey.equals(getString(R.string.central_label))) {
+                createHeadsUpNotificationGoodService(getString(R.string.central_label), sb, NOTIFICATION_CENTRAL,R.drawable.star_wbg);
+            }
+            else if (nameKey.equals(getString(R.string.circle_label))) {
+                createHeadsUpNotificationGoodService(getString(R.string.circle_label), sb, NOTIFICATION_CIRCLE,R.drawable.star_wbg);
+            }
+            else if (nameKey.equals(getString(R.string.district_label))) {
+                createHeadsUpNotificationGoodService(getString(R.string.district_label), sb, NOTIFICATION_DISTRICT,R.drawable.star_wbg);
+            }
+            else if (nameKey.equals(getString(R.string.hammersmith_label))) {
+                createHeadsUpNotificationGoodService(getString(R.string.hammersmith_label), sb, NOTIFICATION_HAMMERSMITH,R.drawable.star_wbg);
+            }
+            else if (nameKey.equals(getString(R.string.jubilee_label))) {
+                createHeadsUpNotificationGoodService(getString(R.string.jubilee_label), sb, NOTIFICATION_JUBILEE,R.drawable.star_wbg);
+            }
+            else if (nameKey.equals(getString(R.string.metropolitan_label))) {
+                createHeadsUpNotificationGoodService(getString(R.string.metropolitan_label), sb, NOTIFICATION_METROPOLITAN,R.drawable.star_wbg);
+            }
+            else if (nameKey.equals(getString(R.string.northern_label))) {
+                createHeadsUpNotificationGoodService(getString(R.string.northern_label), sb, NOTIFICATION_NORTHERN,R.drawable.star_wbg);
+            }
+            else if (nameKey.equals(getString(R.string.piccadilly_label))) {
+                createHeadsUpNotificationGoodService(getString(R.string.piccadilly_label), sb, NOTIFICATION_PICCADILLY,R.drawable.star_wbg);
+            }
+            else if (nameKey.equals(getString(R.string.victoria_label))) {
+                createHeadsUpNotificationGoodService(getString(R.string.victoria_label), sb, NOTIFICATION_VICTORIA,R.drawable.star_wbg);
+            }
+            else if (nameKey.equals(getString(R.string.waterloo_label))) {
+                createHeadsUpNotificationGoodService(getString(R.string.waterloo_label), sb, NOTIFICATION_WATERLOO,R.drawable.star_wbg);
+            }
+            else if (nameKey.equals(getString(R.string.london_overground_label))) {
+                createHeadsUpNotificationGoodService(getString(R.string.london_overground_label), sb, NOTIFICATION_OVERGROUND,R.drawable.star_wbg);
+            }
+            else if (nameKey.equals(getString(R.string.tfl_rail_label))) {
+                createHeadsUpNotificationGoodService(getString(R.string.tfl_rail_label), sb, NOTIFICATION_TFLRAIL,R.drawable.star_wbg);
+            }
+            else{
+                createHeadsUpNotificationGoodService(getString(R.string.dlr_label), sb, NOTIFICATION_DLR,R.drawable.star_wbg);
+            }
+
+        }//isChecked
+
+    }
+
     private void noGoodService(String nameKey, String message) {
         StringBuilder sb=new StringBuilder();
         sb.append(message);
@@ -357,6 +412,28 @@ public class ServiceAlarm extends IntentService implements Callback<List<StatusL
         }
     }
 
+    private void createHeadsUpNotificationGoodService(String label,StringBuilder text,int notificationID,int imageId) {
+        String currentTimeString = new SimpleDateFormat("HH:mm").format(new Date());
+
+        RemoteViews remoteViews = new RemoteViews(getPackageName(), R.layout.custom_notification);
+
+        remoteViews.setTextViewText(R.id.titleNotification,label);
+        remoteViews.setTextViewText(R.id.messageNotification, text.toString());
+        remoteViews.setTextViewText(R.id.timeView, currentTimeString);
+        remoteViews.setImageViewResource(R.id.imageNotification, imageId);
+
+
+
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(getApplicationContext())
+                .setSmallIcon(R.drawable.notification_256x256)
+                .setPriority(NotificationCompat.PRIORITY_MAX)
+                .setVibrate(new long[]{1, 1, 1})
+                .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+                .setContent(remoteViews);
+
+
+        notificationManager.notify(notificationID, notificationBuilder.build());
+    }
     private void createHeadsUpNotification(String label,StringBuilder text,int notificationID) {
         String currentTimeString = new SimpleDateFormat("HH:mm").format(new Date());
 
